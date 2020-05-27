@@ -9,12 +9,46 @@
 }
 
 #headshot{
-  border-radius: 50%;
-  width:150px;
-  height:100px;
+  max-width: 100%
 }
 
 #dog{
     width:40%
 }
 
+#home {
+    display: block;
+}
+
+/*The styling for all of the tab related items */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #cf7b3c;
+  width: 100%
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 23px;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #f2be96;
+}
+
+.tab button.active {
+  background-color: #dea376;
+}
+
+.tabcontent {
+  display: none;
+  padding: 50px 50px;
+  border: none;
+  border-top: none;
+}

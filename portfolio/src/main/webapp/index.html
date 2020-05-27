@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Kristen's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="content">
-      <h1>Kristen's Portfolio</h1>
-      <div>
-        <img id="headshot" src="/images/kristen-headshot.jpg">
-      </div>
-      <p>This is my portfolio.</p>
-      <h2> About Me:</h2>
-      <p> I'm a rising junior at Scripps College in Los Angeles, where I study computer science.
-          I've been working from home in Saint Louis, Missouri, where I spend my free time baking,
-          reading the "newest" Game of Thrones novel, watching Youtube videos, binging more Netflix
-          shows than I'd ever care to admit, and playing with my puppy, Fitz.
-      </p>
-      <div>
-        <img id="dog" src="/images/fitz.jpg">
-      </div>
-      <p>This is Fitz. His favorite passtime is pretending that he can't jump onto my bed in order
-         to trick me into giving him a boost to get up. Don't let the eyes fool you, he is perfectly
-         capable of getting up on his own. His second favorite passtime is barking during GVCs.</p>
-      
-      <p>Click here to get a random quote from my favorite show:</p>
-      <button onclick="addRandomQuote()">Generate Quote</button>
-      <div id="quote-container"></div>
-      
+        <h1>Kristen's Portfolio</h1>
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event,'home')">Home</button>
+            <button class="tablinks" onclick="openTab(event,'about-me')">About Me</button>
+            <button class="tablinks" onclick="openTab(event,'my-projects')">My Projects</button>
+            <button class="tablinks" onclick="openTab(event,'fun-facts')">Fun Facts</button>
+            <button class="tablinks" onclick="openTab(event,'travel-blog')">Travel Blog</button>
+            <button class="tablinks" onclick="openTab(event,'contact-me')">Contact Me</button>
+        </div>
+        <div id="home" class="tabcontent">
+            <h3> Hi there, and welcome to my portfolio! </h3>
+        </div>
+        <div id="about-me" class="tabcontent">
+            <h2>About Me:</h2>
+            <div>
+                <img id="headshot" src="/images/kristen-headshot.jpg" alt="Picture of Kristen">
+            </div>
+            <p>My name is Kristen Mason, and I'm a rising junior at Scripps College in Los Angeles, where I study
+                computer science.
+                I've been working from home in Saint Louis, Missouri, where I spend my free time baking,
+                reading the "newest" Game of Thrones novel, watching Youtube videos, binging more Netflix
+                shows than I'd ever care to admit, and playing with my puppy, Fitz.
+            </p>
+        </div>
+        <div id="my-projects" class="tabcontent">
+            <h2>My Projects:</h2>
+            <p>Here are some of my projects</p>
+        </div>
+        <div id="fun-facts" class="tabcontent">
+            <h2>Fun Facts</h2>
+            <p>Here are some fun facts about me!</p>
+            <ul>
+                <li>I have a dog!
+                    <div>
+                        <img id="dog" src="/images/fitz.jpg" alt="A black lab who refuses to get on the bed">
+                    </div>
+                    <p>This is Fitz. His favorite pastime is pretending that he can't jump onto my bed in order
+                        to trick me into giving him a boost to get up. Don't let the eyes fool you, he is perfectly
+                        capable of getting up on his own. His second favorite passtime is barking during GVCs.</p>
+                </li>
+                <li>My favorite TV show right now is probably Brooklyn 99
+                    <p>Click here to get a random quote from my favorite show:</p>
+                    <button onclick="addRandomQuote()">Generate Quote</button>
+                    <div id="quote-container"></div>
+                </li>
+                <li>I'm an only child</li>
+                <li>I collect postcards and stickers</li>
+            </ul>
+            <p>In order to beat the quarantine blues, I've picked up a number of hobbies, including (but not limited
+                to):</p>
+            <ul>
+                <li>Baking sourdough bread</li>
+                <li>Listening to different kinds of music</li>
+                <li>Reading lots of books (I'm currently working through A Dance With Dragons and How to Win Friends and
+                    Influence People!)</li>
+                <li>Cutting down on my screentime</li>
+                <li>Going on hikes around town</li>
+            </ul>
+        </div>
+        <div id="travel-blog" class="tabcontent">
+            <h2> Travel Blog </h2>
+            <h3>Here are some of my favorite places I've visited in the past few years! </h3>
+        </div>
+        <div id="contact-me" class="tabcontent">
+            <h2>Contact Me</h2>
+            <p>Here's where you can find me on github, linkedin and via email!</p>
+        </div>
+
     </div>
-  </body>
+</body>
+
 </html>
