@@ -12,15 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+  const QUOTES =
+      ['Toit Nups!',
+       'NINE-NINE!',
+        'Cool cool cool cool cool, no doubt no doubt.',
+         'Why is no one having a good time? I specifically requested it.'];
+
 /**
  * Adds a random quote from Brooklyn-99 to the page.
  */
 function addRandomQuote() {
-  const quotes =
-      ['Toit Nups!', 'NINE-NINE!', 'Cool cool cool cool cool, no doubt no doubt.', 'Why is no one having a good time? I specifically requested it.'];
-
   // Pick a random greeting.
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
 
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
@@ -33,18 +37,15 @@ function addRandomQuote() {
  * This function opens the tab we want to access and hides the unnecessary tabs
  */
 function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for( i = 0; i <tabcontent.length; i++) {
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for(var i = 0; i <tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-
-    tablinks = document.getElementsByClassName("tablinks");
+    var tablinks = document.getElementsByClassName("tablinks");
     for(i = 0; i< tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].classList.remove("active");
     }
-
     document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    evt.currentTarget.classList.add("active");
 }
 
