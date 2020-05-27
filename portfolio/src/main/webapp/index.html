@@ -11,23 +11,36 @@
       <h1>Kristen's Portfolio</h1>
 
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event,'about-me')" id="defaultOpen">About Me</button>
+        <button class="tablinks active" onclick="openTab(event,'home')">Home</button>
+        <button class="tablinks" onclick="openTab(event,'about-me')">About Me</button>
         <button class="tablinks" onclick="openTab(event,'my-projects')">My Projects</button>
         <button class="tablinks" onclick="openTab(event,'fun-facts')">Fun Facts</button>
+        <button class="tablinks" onclick="openTab(event,'travel-blog')">Travel Blog</button>
         <button class="tablinks" onclick="openTab(event,'contact-me')">Contact Me</button>
       </div>
+        <div id="home" class="tabcontent">
+        <h3> Hi there, and welcome to my portfolio! </h3>
+        </div>
         <div id="about-me" class="tabcontent">
             <h2> About Me:</h2>
             <div>
-        <img id="headshot" src="/images/kristen-headshot.jpg">
+        <img id="headshot" src="/images/kristen-headshot.jpg" alt="Picture of Kristen">
         </div>
             <p> I'm a rising junior at Scripps College in Los Angeles, where I study computer science.
                 I've been working from home in Saint Louis, Missouri, where I spend my free time baking,
                 reading the "newest" Game of Thrones novel, watching Youtube videos, binging more Netflix
                 shows than I'd ever care to admit, and playing with my puppy, Fitz.
             </p>
+        </div>
+        <div id="my-projects" class="tabcontent">
+            <h2>My Projects:</h2>
+            <p>Here are some of my projects</p>
+        </div>
+        <div id="fun-facts" class="tabcontent">
+            <h2>Fun Facts</h2>
+            <p>Here are some fun facts about me!</p>
             <div>
-                <img id="dog" src="/images/fitz.jpg">
+                <img id="dog" src="/images/fitz.jpg" alt="A black lab who refuses to get on the bed">
             </div>
             <p>This is Fitz. His favorite passtime is pretending that he can't jump onto my bed in order
                 to trick me into giving him a boost to get up. Don't let the eyes fool you, he is perfectly
@@ -37,13 +50,9 @@
             <button onclick="addRandomQuote()">Generate Quote</button>
             <div id="quote-container"></div>
         </div>
-        <div id="my-projects" class="tabcontent">
-            <h2>My Projects:</h2>
-            <p>Here are some of my projects</p>
-        </div>
-        <div id="fun-facts" class="tabcontent">
-            <h2>Fun Facts</h2>
-            <p>Here are some fun facts about me!</p>
+        <div id="travel-blog" class="tabcontent">
+            <h2> Travel Blog </h2>
+            <h3>Here are some of my favorite places I've visited in the past few years! </h3>
         </div>
         <div id="contact-me" class="tabcontent">
             <h2>Contact Me</h2>

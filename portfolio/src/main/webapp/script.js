@@ -28,6 +28,10 @@ function addRandomQuote() {
 }
 
 
+
+/**
+ * This function opens the tab we want to access and hides the unnecessary tabs
+ */
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
