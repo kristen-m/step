@@ -4,6 +4,17 @@
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#quote-container {
+  margin-top: 30px;
 }
+
+#headshot{
+  border-radius: 50%;
+  width:150px;
+  height:100px;
+}
+
+#dog{
+    width:40%
+}
+
