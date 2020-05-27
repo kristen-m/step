@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Kristen's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="content">
-      <h1>Kristen's Portfolio</h1>
-      <div class="tab">
-        <button class="tablinks active" onclick="openTab(event,'home')">Home</button>
-        <button class="tablinks" onclick="openTab(event,'about-me')">About Me</button>
-        <button class="tablinks" onclick="openTab(event,'my-projects')">My Projects</button>
-        <button class="tablinks" onclick="openTab(event,'fun-facts')">Fun Facts</button>
-        <button class="tablinks" onclick="openTab(event,'travel-blog')">Travel Blog</button>
-        <button class="tablinks" onclick="openTab(event,'contact-me')">Contact Me</button>
-      </div>
+        <h1>Kristen's Portfolio</h1>
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event,'home')">Home</button>
+            <button class="tablinks" onclick="openTab(event,'about-me')">About Me</button>
+            <button class="tablinks" onclick="openTab(event,'my-projects')">My Projects</button>
+            <button class="tablinks" onclick="openTab(event,'fun-facts')">Fun Facts</button>
+            <button class="tablinks" onclick="openTab(event,'travel-blog')">Travel Blog</button>
+            <button class="tablinks" onclick="openTab(event,'contact-me')">Contact Me</button>
+        </div>
         <div id="home" class="tabcontent">
-        <h3> Hi there, and welcome to my portfolio! </h3>
+            <h3> Hi there, and welcome to my portfolio! </h3>
         </div>
         <div id="about-me" class="tabcontent">
             <h2> About Me:</h2>
-        <div>
-        <img id="headshot" src="/images/kristen-headshot.jpg" alt="Picture of Kristen">
-        </div>
-            <p> My name is Kristen Mason, and I'm a rising junior at Scripps College in Los Angeles, where I study computer science.
+            <div>
+                <img id="headshot" src="/images/kristen-headshot.jpg" alt="Picture of Kristen">
+            </div>
+            <p> My name is Kristen Mason, and I'm a rising junior at Scripps College in Los Angeles, where I study
+                computer science.
                 I've been working from home in Saint Louis, Missouri, where I spend my free time baking,
                 reading the "newest" Game of Thrones novel, watching Youtube videos, binging more Netflix
                 shows than I'd ever care to admit, and playing with my puppy, Fitz.
@@ -46,7 +49,7 @@
                     <p>This is Fitz. His favorite passtime is pretending that he can't jump onto my bed in order
                         to trick me into giving him a boost to get up. Don't let the eyes fool you, he is perfectly
                         capable of getting up on his own. His second favorite passtime is barking during GVCs.</p>
-                </li>  
+                </li>
                 <li> My favorite TV show right now is probably Brooklyn 99
                     <p>Click here to get a random quote from my favorite show:</p>
                     <button onclick="addRandomQuote()">Generate Quote</button>
@@ -55,50 +58,65 @@
                 <li> I'm an only child</li>
                 <li>I collect postcards and stickers!</li>
             </ul>
-            <p>In order to beat the quarantine blues, I've picked up a number of hobbies, including (but not limited to):</p>
+            <p>In order to beat the quarantine blues, I've picked up a number of hobbies, including (but not limited
+                to):</p>
             <ul>
                 <li>Baking sourdough bread</li>
                 <li>Listening to different kinds of music</li>
-                <li>Reading lots of books (I'm currently working through A Dance With Dragons and How to Win Friends and Influence People!)</li>
+                <li>Reading lots of books (I'm currently working through A Dance With Dragons and How to Win Friends and
+                    Influence People!)</li>
                 <li>Cutting down on my screentime</li>
                 <li>Going on hikes around town</li>
-            </ul>     
+            </ul>
         </div>
         <div id="travel-blog" class="tabcontent">
             <h2> Travel Blog </h2>
             <h3>Here are some of my favorite places I've visited in the past few years! </h3>
             <div id="australia">
-            <h4>Australia</h4>
-            <p>This past winter, my family went to Australia for New Years. We visited Sydney, Adelaide, Melbourne, and Hamilton Island. 
-                My favorite experiences from this trip were the fireworks on New Year's Eve in Sydney Harbour, and going scuba diving on the Great Barrier Reef!
-                Such a cool thing to check off the bucketlist!
-            </p>
-            <div>
+                <h4>Australia</h4>
+                <p>This past winter, my family went to Australia for New Years. We visited Sydney, Adelaide, Melbourne,
+                    and Hamilton Island.
+                    My favorite experiences from this trip were the fireworks on New Year's Eve in Sydney Harbour, and
+                    going scuba diving on the Great Barrier Reef!
+                    Such a cool thing to check off the bucketlist! We actually visited during the awful fires they had
+                    at the
+                    beginning of the year. You can see in the picture of the Opera House that everything is smoky and
+                    muted.
+                    During our stay in Adelaide I actually woke up one morning to the smell of burning rubber because
+                    the fires were so close!
+                </p>
                 <img id="travel-pic" src="/images/apostles.jpg" alt="The Twelve Apostles">
                 <img id="travel-pic" src="/images/opera.jpg" alt="The Sydney Opera House">
             </div>
-            </div>
             <div id="national-parks">
-            <h4>National Parks</h4>
-            <p>Since coming to college, I've visited 11 National Parks! Rocky Mountain National Park, Canyonlands, Arches, Capitol Reef, Zion, Bryce Canyon,
-                 Joshua Tree, Pinnacles, Channel Islands, Death Valley, and Petrified Forest NP, respectively. Here are some of my favorite pictures from my favorite parks!
-                 </p>
-                 <img id="travel-pic" src="/images/channel.jpg" alt="View from a bluff in Channel Islands NP">
-                 <img id="travel-pic" src="/images/narrows.jpg" alt="The Narrows trail at Zion NP">
-                 <img id="travel-pic" src="/images/jtree.jpg" alt="The Joshua Tree Desert">
-                 <img id="travel-pic" src="/images/jtree4.jpg" alt="A Joshua Tree at sunset">
-                 <img id="travel-pic" src="/images/jtree3.jpg" alt="Yellow flowers in front of Split Rock at Joshua Tree NP">
+                <h4>National Parks</h4>
+                <p>Since coming to college, I've visited 11 National Parks! Rocky Mountain National Park, Canyonlands,
+                    Arches, Capitol Reef, Zion, Bryce Canyon,
+                    Joshua Tree, Pinnacles, Channel Islands, Death Valley, and Petrified Forest NP, respectively. Here
+                    are some of my favorite pictures from my favorite parks!
+                    I'm a little spoiled because Joshua Tree NP is an hour drive away from my college, so my friends and
+                    I will take short
+                    day trips over there all the time!
+                </p>
+                <img id="travel-pic" src="/images/channel.jpg" alt="View from a bluff in Channel Islands NP">
+                <img id="travel-pic" src="/images/narrows.jpg" alt="The Narrows trail at Zion NP">
+                <img id="travel-pic" src="/images/jtree.jpg" alt="The Joshua Tree Desert">
+                <img id="travel-pic" src="/images/jtree4.jpg" alt="A Joshua Tree at sunset">
+                <img id="travel-pic" src="/images/jtree3.jpg"
+                    alt="Yellow flowers in front of Split Rock at Joshua Tree NP">
             </div>
             <div id="cali">
-            <h4>California</h4>
-            <p>One of the best things about going to school in California is that every day can be a vacation! The area around my school is so beautiful that it basically counts as 
-               taking a fancy trip, so I've included some of my favorite pictures from California here.</p>
-               <img id="travel-pic" src="/images/denison.jpg" alt="Denison Library at Scripps College">
-               <img id="travel-pic" src="/images/scPool.jpg" alt="The pool at Scripps College">
-               <img id="travel-pic" src="/images/admissions.jpg" alt="The admissions courtyard at Scripps College">
-               <img id="travel-pic" src="/images/malott.JPG" alt="The view from Malott Commons">
-               <img id="travel-pic" src="/images/sb1.jpg" alt="Antelope Valley, CA during the 2019 superbloom">
-               <img id="travel-pic" src="/images/sb2.jpg" alt="Antelope Valley, CA during the 2019 superbloom (2)">
+                <h4>California</h4>
+                <p>One of the best things about going to school in California is that every day can be a vacation! The
+                    area around my school is so beautiful that it basically counts as
+                    taking a fancy trip, so I've included some of my favorite pictures from California here.
+                </p>
+                <img id="travel-pic" src="/images/denison.jpg" alt="Denison Library at Scripps College">
+                <img id="travel-pic" src="/images/scPool.jpg" alt="The pool at Scripps College">
+                <img id="travel-pic" src="/images/admissions.jpg" alt="The admissions courtyard at Scripps College">
+                <img id="travel-pic" src="/images/malott.JPG" alt="The view from Malott Commons">
+                <img id="travel-pic" src="/images/sb1.jpg" alt="Antelope Valley, CA during the 2019 superbloom">
+                <img id="travel-pic" src="/images/sb2.jpg" alt="Antelope Valley, CA during the 2019 superbloom (2)">
             </div>
         </div>
         <div id="contact-me" class="tabcontent">
@@ -107,5 +125,6 @@
         </div>
 
     </div>
-  </body>
+</body>
+
 </html>
