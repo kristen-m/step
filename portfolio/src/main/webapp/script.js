@@ -51,8 +51,8 @@ function openTab(evt, tabName) {
 
 
 
-function hideButton() {
-    var x = document.getElementById("hide-div");
+function hideButton(id) {
+    var x = document.getElementById(id);
     if (x.style.display === "none") {
     x.style.display = "block";
     } else {
@@ -61,5 +61,12 @@ function hideButton() {
 }
 
 function fixSite() {
-    
+    var html = document.getElementById("html");
+    var buttons = document.getElementsByClassName("button");
+    html.style.fontFamily = "Georgia";
+    html.style.color = "#000";
+    html.style.backgroundColor = "#f1f1f1";
+    for(var x = 0; x < buttons.length; x++) {
+        buttons[x].style.fontFamily = "Georgia";
+    }
 }
