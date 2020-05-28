@@ -65,7 +65,7 @@ function fixSite() {
     var buttons = document.getElementsByClassName("button");
     html.style.fontFamily = "Georgia";
     html.style.color = "#000";
-    html.style.backgroundColor = "#f1f1f1";
+    html.style.backgroundColor = "white";
     for(var x = 0; x < buttons.length; x++) {
         buttons[x].style.fontFamily = "Georgia";
     }
