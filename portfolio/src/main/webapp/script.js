@@ -49,3 +49,17 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
+
+
+function hideButton() {
+    var x = document.getElementById("hide-div");
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+  }
+}
+
+function fixSite() {
+    
+}
