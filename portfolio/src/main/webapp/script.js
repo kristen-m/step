@@ -37,11 +37,11 @@ function addRandomQuote() {
  * This function opens the tab we want to access and hides the unnecessary tabs
  */
 function openTab(evt, tabName) {
-    var tabcontent = document.getElementsByClassName("tabcontent");
+    const tabcontent = document.getElementsByClassName("tabcontent");
     for(var i = 0; i <tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    var tablinks = document.getElementsByClassName("tablinks");
+    const tablinks = document.getElementsByClassName("tablinks");
     for(i = 0; i< tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
@@ -63,8 +63,8 @@ function toggleVisibility(id) {
 function fixSite() {
     toggleVisibility("graphic")
     toggleVisibility("hide-div");
-    var html = document.getElementById("html");
-    var buttons = document.getElementsByClassName("button");
+    const html = document.getElementById("html");
+    const buttons = document.getElementsByClassName("button");
     html.style.fontFamily = "Georgia";
     html.style.color = "#000";
     html.style.backgroundColor = "white";
