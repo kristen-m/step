@@ -42,7 +42,7 @@ function openTab(evt, tabName) {
         tabcontent[i].style.display = "none";
     }
     const tablinks = document.getElementsByClassName("tablinks");
-    for(i = 0; i< tablinks.length; i++) {
+    for(var i = 0; i< tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
     document.getElementById(tabName).style.display = "block";
@@ -61,9 +61,7 @@ function toggleVisibility(id) {
 }
 
 function fixSite() {
-    toggleVisibility("graphic")
-    toggleVisibility("hide-div");
-    const html = document.getElementById("html");
+    const html = document.getElementsByTagName("html")[0];
     const buttons = document.getElementsByClassName("button");
     html.style.fontFamily = "Georgia";
     html.style.color = "#000";
@@ -71,4 +69,6 @@ function fixSite() {
     for(var x = 0; x < buttons.length; x++) {
         buttons[x].style.fontFamily = "Georgia";
     }
+    toggleVisibility("graphic")
+    toggleVisibility("hide-div");
 }
