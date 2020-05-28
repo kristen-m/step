@@ -12,12 +12,12 @@
     <div id="content">
         <h1>Kristen's Portfolio</h1>
         <div class="tab">
-            <button class="tablinks active" onclick="openTab(event,'home')">Home</button>
-            <button class="tablinks" onclick="openTab(event,'about-me')">About Me</button>
-            <button class="tablinks" onclick="openTab(event,'my-projects')">My Projects</button>
-            <button class="tablinks" onclick="openTab(event,'fun-facts')">Fun Facts</button>
-            <button class="tablinks" onclick="openTab(event,'travel-blog')">Travel Blog</button>
-            <button class="tablinks" onclick="openTab(event,'contact-me')">Contact Me</button>
+            <button class="tablinks active button" onclick="openTab(event,'home')">Home</button>
+            <button class="tablinks button" onclick="openTab(event,'about-me')">About Me</button>
+            <button class="tablinks button" onclick="openTab(event,'my-projects')">My Projects</button>
+            <button class="tablinks button" onclick="openTab(event,'fun-facts')">Fun Facts</button>
+            <button class="tablinks button" onclick="openTab(event,'travel-blog')">Travel Blog</button>
+            <button class="tablinks button" onclick="openTab(event,'contact-me')">Contact Me</button>
         </div>
         <div id="home" class="tabcontent">
             <h3>Hi there, and welcome to my portfolio! </h3>
@@ -25,7 +25,7 @@
               <img id="joke-pic" src="/images/graphic_design_is_my_passion.jpg" alt="A poorly photoshopped image that says \'Graphic design is my passion\' in Papyrus font">
             </div>
             <div id="hide-div">
-              <button id="show-button" onclick="hideButton("hide-div");hideButton("graphic");fixSite()">Please fix this monstrosity</button>
+              <button id="show-button button" onclick="hideButton('hide-div');hideButton('graphic');fixSite()">Ahh, my eyes! Please fix this monstrosity of a website</button>
             </div>
         </div>
         <div id="about-me" class="tabcontent">
@@ -58,7 +58,7 @@
                 </li>
                 <li>My favorite TV show right now is probably Brooklyn 99
                     <p>Click here to get a random quote from my favorite show:</p>
-                    <button onclick="addRandomQuote()">Generate Quote</button>
+                    <button class="button" onclick="addRandomQuote()">Generate Quote</button>
                     <div id="quote-container"></div>
                 </li>
                 <li>I'm an only child</li>
