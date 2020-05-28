@@ -52,11 +52,11 @@ function openTab(evt, tabName) {
 
 
 function toggleVisibility(id) {
-    var x = document.getElementById(id);
+    const x = document.getElementById(id);
     if (x.style.display === "none") {
-    x.style.display = "block";
+        x.style.display = "block";
     } else {
-    x.style.display = "none";
+        x.style.display = "none";
   }
 }
 
