@@ -1,6 +1,6 @@
 html {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 #content {
@@ -18,53 +18,53 @@ html {
 }
 
 #dog{
-    width:40%
+  width:40%
 }
 
 #home {
-    display: block;
+  display: block;
 }
 
 #logo {
-    max-width: 100%;
-    max-height: 100%;
-    cursor: pointer;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
 }
 
 #logo:hover {
-    -webkit-filter: brightness(70%);
-    -moz-filter: brightness(70%);
-    -o-filter: brightness(70%);
-    -ms-filter: brightness(70%);
-    filter: brightness(70%);
+  -webkit-filter: brightness(70%);
+  -moz-filter: brightness(70%);
+  -o-filter: brightness(70%);
+  -ms-filter: brightness(70%);
+  filter: brightness(70%);
     
 }
 
 #github {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 #linkedin {
-    padding-top: 21px;
-    padding-left: 5px;
+  padding-top: 21px;
+  padding-left: 5px;
 }
 
 .row::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .col {
-    float: left;
-    width: 33.33%;
-    padding: 5px;
+  float: left;
+  width: 33.33%;
+  padding: 5px;
 }
 
 #travel-pic {
-    max-width: 100%;
-    max-height: 100%;
-    border-bottom: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 10px;
 }
 
 
