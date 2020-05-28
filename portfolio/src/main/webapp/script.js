@@ -51,7 +51,7 @@ function openTab(evt, tabName) {
 
 
 
-function hideButton(id) {
+function toggleVisibility(id) {
     var x = document.getElementById(id);
     if (x.style.display === "none") {
     x.style.display = "block";
@@ -61,6 +61,8 @@ function hideButton(id) {
 }
 
 function fixSite() {
+    toggleVisibility("graphic")
+    toggleVisibility("hide-div");
     var html = document.getElementById("html");
     var buttons = document.getElementsByClassName("button");
     html.style.fontFamily = "Georgia";
