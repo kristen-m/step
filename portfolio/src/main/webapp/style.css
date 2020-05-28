@@ -26,8 +26,8 @@ html {
 }
 
 #logo {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 100%;
+    max-height: 100%;
     cursor: pointer;
 }
 
@@ -38,6 +38,27 @@ html {
     -ms-filter: brightness(70%);
     filter: brightness(70%);
     
+}
+
+#github {
+    padding-right: 5px;
+}
+
+#linkedin {
+    padding-top: 21px;
+    padding-left: 5px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.col {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
 }
 
 #travel-pic {
