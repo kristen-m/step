@@ -25,7 +25,7 @@ html {
     display: block;
 }
 
-#travel-pic {
+.travel-pic {
     max-width: 100%;
     max-height: 100%;
     border-bottom: 10px;
