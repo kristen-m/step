@@ -61,11 +61,11 @@ function toggleVisibility(id) {
 }
 
 function fixSite() {
-    const html = document.getElementsByTagName("html")[0];
+    const visuals = document.body;
     const buttons = document.getElementsByClassName("button");
-    html.style.fontFamily = "Georgia";
-    html.style.color = "#000";
-    html.style.backgroundColor = "white";
+    visuals.style.fontFamily = "Georgia";
+    visuals.style.color = "#000";
+    visuals.style.backgroundColor = "white";
     for(var x = 0; x < buttons.length; x++) {
         buttons[x].style.fontFamily = "Georgia";
     }
