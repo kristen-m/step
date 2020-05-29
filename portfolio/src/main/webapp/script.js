@@ -16,38 +16,38 @@
  * This function opens the tab we want to access and hides the unnecessary tabs
  */
 function openTab(evt, tabName) {
-    const tabcontent = document.getElementsByClassName("tabcontent");
-    for(let i = 0; i <tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    const tablinks = document.getElementsByClassName("tablinks");
-    for(let i = 0; i< tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.classList.add("active");
+  const tabcontent = document.getElementsByClassName('tabcontent');
+  for (let i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = 'none';
+  }
+  const tablinks = document.getElementsByClassName('tablinks');
+  for (let i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove('active');
+  }
+  document.getElementById(tabName).style.display = 'block';
+  evt.currentTarget.classList.add('active');
 }
 
 
 
 function toggleVisibility(id) {
-    const x = document.getElementById(id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
+  const x = document.getElementById(id);
+  if (x.style.display === 'none') {
+    x.style.display = 'block';
+  } else {
+    x.style.display = 'none';
   }
 }
 
 function fixSite() {
-    const visuals = document.body;
-    const buttons = document.getElementsByClassName("button");
-    visuals.style.fontFamily = "Georgia";
-    visuals.style.color = "#000";
-    visuals.style.backgroundColor = "white";
-    for(let x = 0; x < buttons.length; x++) {
-        buttons[x].style.fontFamily = "Georgia";
-    }
-    toggleVisibility("graphic")
-    toggleVisibility("hide-div");
+  const visuals = document.body;
+  const buttons = document.getElementsByClassName('button');
+  visuals.style.fontFamily = 'Georgia';
+  visuals.style.color = '#000';
+  visuals.style.backgroundColor = 'white';
+  for (let x = 0; x < buttons.length; x++) {
+    buttons[x].style.fontFamily = 'Georgia';
+  }
+  toggleVisibility('graphic')
+  toggleVisibility('hide-div');
 }
