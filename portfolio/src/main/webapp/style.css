@@ -1,6 +1,6 @@
 html {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 body {
@@ -33,23 +33,58 @@ button {
 }
 
 #dog{
-    width:40%
+  width:40%
 }
 
 #home {
-    display: block;
+  display: block;
 }
 
-#travel-pic {
-    max-width: 100%;
-    max-height: 100%;
-    border-bottom: 10px;
+#logo {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
+}
+
+#logo:hover {
+  -webkit-filter: brightness(70%);
+  -moz-filter: brightness(70%);
+  -o-filter: brightness(70%);
+  -ms-filter: brightness(70%);
+  filter: brightness(70%);
+    
+}
+
+#github {
+  padding-right: 5px;
+}
+
+#linkedin {
+  padding-top: 21px;
+  padding-left: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 #joke-pic {
   max-width: 100%;
   max-height: 100%;
 }
+
+.col {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+#travel-pic {
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 10px;
 
 /*The styling for all of the tab related items */
 .tab {
