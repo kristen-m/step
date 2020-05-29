@@ -68,7 +68,6 @@ function fixSite() {
     visuals.style.backgroundColor = "white";
     for(let x = 0; x < buttons.length; x++) {
         buttons[x].style.fontFamily = "Georgia";
-        console.log("Fixed buttons");
     }
     toggleVisibility("graphic")
     toggleVisibility("hide-div");
