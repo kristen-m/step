@@ -38,11 +38,11 @@ function addRandomQuote() {
  */
 function openTab(evt, tabName) {
     const tabcontent = document.getElementsByClassName("tabcontent");
-    for(var i = 0; i <tabcontent.length; i++) {
+    for(let i = 0; i <tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
     const tablinks = document.getElementsByClassName("tablinks");
-    for(var i = 0; i< tablinks.length; i++) {
+    for(let i = 0; i< tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
     document.getElementById(tabName).style.display = "block";
@@ -66,7 +66,7 @@ function fixSite() {
     visuals.style.fontFamily = "Georgia";
     visuals.style.color = "#000";
     visuals.style.backgroundColor = "white";
-    for(var x = 0; x < buttons.length; x++) {
+    for(let x = 0; x < buttons.length; x++) {
         buttons[x].style.fontFamily = "Georgia";
     }
     toggleVisibility("graphic")
