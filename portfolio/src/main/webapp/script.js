@@ -54,7 +54,8 @@ function fixSite() {
 
 
 function getGreeting() {
-  fetch('/data').then(response => response.text()).then((quote) => {
+  fetch('/data').then(response => response.json()).then((quote) => {
     document.getElementById('greeting-container').innerText = quote;
   });
+  
 }
