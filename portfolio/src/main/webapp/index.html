@@ -8,7 +8,7 @@
     <script src="script.js"></script>
 </head>
 
-<body>
+<body onload="getGreeting()">
     <div id="content">
         <h1>Kristen's Portfolio</h1>
         <div class="tab">
@@ -21,6 +21,9 @@
         </div>
         <div id="home" class="tabcontent">
             <h3>Hi there, and welcome to my portfolio! </h3>
+            <div id="greeting-content">
+              <div id="greeting-container"></div>
+            </div>
             <div id="graphic">
               <img id="joke-pic" src="/images/graphic_design_is_my_passion.jpg" alt="A poorly photoshopped image that says \'Graphic design is my passion\' in Papyrus font">
             </div>
