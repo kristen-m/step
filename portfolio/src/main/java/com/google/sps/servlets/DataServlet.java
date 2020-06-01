@@ -15,16 +15,31 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private ArrayList<String> fruits;
+
+  @Override
+  public void init(){
+    fruits = new ArrayList<String>();
+    fruits.add("Blueberry");
+    fruits.add("Cherry");
+    fruits.add("Peach");
+    fruits.add("Apricot");
+    fruits.add("Mango");
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Kristen!");
+    Gson gson = new Gson();
+    String jsonfruit = gson.toJson(fruits);
+    response.setContentType("application/json;");
+    response.getWriter().println(jsonfruit);
   }
 }
