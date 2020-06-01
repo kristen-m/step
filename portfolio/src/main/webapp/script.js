@@ -53,9 +53,10 @@ function fixSite() {
 }
 
 
-function getGreeting() {
-  fetch('/data').then(response => response.json()).then((quote) => {
-    document.getElementById('greeting-container').innerText = quote;
+function getFruit() {
+  fetch('/data').then(response => response.json()).then((fruit) => {
+    document.getElementById('fruit-container').innerText = fruit;
+
   });
   
 }
