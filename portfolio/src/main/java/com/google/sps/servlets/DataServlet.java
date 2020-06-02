@@ -32,11 +32,9 @@ import java.util.List;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> comments;    
-  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments = new ArrayList<String>();  
+    ArrayList<String> comments = new ArrayList<String>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
