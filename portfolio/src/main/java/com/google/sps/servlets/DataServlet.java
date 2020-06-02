@@ -23,23 +23,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> fruits;
+  private ArrayList<String> comments;
+
 
   @Override
   public void init(){
-    fruits = new ArrayList<String>();
-    fruits.add("Blueberry");
-    fruits.add("Cherry");
-    fruits.add("Peach");
-    fruits.add("Apricot");
-    fruits.add("Mango");
+    comments = new ArrayList<String>();    
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    String jsonfruit = gson.toJson(fruits);
     response.setContentType("application/json;");
-    response.getWriter().println(jsonfruit);
+    String json = new Gson().toJson(comments);
+    response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      String comment = getComment(request);
+      comments.add(comment);
+      response.setContentType("text/html");
+      response.sendRedirect("/index.html");
+  }
+
+  private String getComment(HttpServletRequest request) {
+    String value = request.getParameter("text-input");
+    if (value == null) {
+      return "";
+    }
+    return value;
   }
 }
+
+
+

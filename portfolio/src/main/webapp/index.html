@@ -8,7 +8,7 @@
     <script src="script.js"></script>
 </head>
 
-<body onload="getFruit()">
+<body onload="getComments()">
     <div id="content">
         <h1>Kristen's Portfolio</h1>
         <div class="tab">
@@ -21,10 +21,6 @@
         </div>
         <div id="home" class="tabcontent">
             <h3>Hi there, and welcome to my portfolio! </h3>
-            <div id="fruit-content">
-              <h4>The most underrated fruits are:</h4>
-              <div id="fruit-container"></div>
-            </div>
             <div id="graphic">
               <img id="joke-pic" src="/images/graphic_design_is_my_passion.jpg" alt="A poorly photoshopped image that says \'Graphic design is my passion\' in Papyrus font">
             </div>
@@ -119,6 +115,17 @@
                 <li>Cutting down on my screentime</li>
                 <li>Going on hikes around town</li>
             </ul>
+
+            <form action="/data" method="POST">
+
+              <p>Have something to say? Let me know:</p>
+              <textarea name="text-input">Post your comment here!</textarea>
+              <input type="submit" />
+            </form>
+            <div id="comment-content">
+              <h4>Read some old comments:</h4>
+              <div id="comment-container"></div>
+            </div>
         </div>
         <div id="travel-blog" class="tabcontent">
             <h2> Travel Blog </h2>
