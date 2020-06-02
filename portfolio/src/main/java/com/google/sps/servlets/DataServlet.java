@@ -32,47 +32,36 @@ import java.util.List;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> comments;
-
-
-  @Override
-  public void init(){
-    comments = new ArrayList<String>();    
-  }
-
+  private ArrayList<String> comments;    
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    comments = new ArrayList<String>();  
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String comment = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
+      comments.add(comment);
+    }
+    Gson gson = new Gson();
     response.setContentType("application/json;");
-    String json = new Gson().toJson(comments);
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(comments));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    /*String comment = getComment(request);
+    String comment = getComment(request);
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("comment", comment);
     commentEntity.setProperty("timestamp", timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-    */
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-    List<Task> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("comment");
-      long timestamp = (long) entity.getProperty("timestamp");
-
-      Task comment = new Task(id, title, timestamp);
-      comments.add(comment);
-    }
-
-    Gson gson = new Gson();
-
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
+    //response.setContentType("text/html");
+    response.sendRedirect("/index.html");
   }
 
   private String getComment(HttpServletRequest request) {
