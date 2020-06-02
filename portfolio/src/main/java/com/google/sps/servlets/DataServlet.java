@@ -23,20 +23,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  //private ArrayList<String> fruits;
   private ArrayList<String> comments;
 
-/*
+
   @Override
   public void init(){
-    fruits = new ArrayList<String>();
-    fruits.add("Blueberry");
-    fruits.add("Cherry");
-    fruits.add("Peach");
-    fruits.add("Apricot");
-    fruits.add("Mango");
+    comments = new ArrayList<String>();    
   }
-*/
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,10 +39,8 @@ public class DataServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      comments = new ArrayList<String>();
       String comment = getComment(request);
       comments.add(comment);
-
       response.setContentType("text/html");
       response.sendRedirect("/index.html");
   }
