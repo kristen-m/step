@@ -52,7 +52,7 @@ function fixSite() {
   toggleVisibility('hide-div');
 }
 
-
+/*
 function getFruit() {
   fetch('/data').then(response => response.json()).then((fruitlist) => {
     document.getElementById('fruit-container').innerText = fruitlist.join(', ');
@@ -60,3 +60,13 @@ function getFruit() {
   });
   
 }
+*/ 
+
+function getComments() {
+  console.log("In the func");
+  fetch('/data').then(response => response.json()).then((comments) => {
+    document.getElementById('comment-container').innerText = comments;
+    console.log("Last comment was: "+comments[0]);
+  });
+}
+
