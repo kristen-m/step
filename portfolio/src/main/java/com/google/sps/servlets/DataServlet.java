@@ -38,6 +38,7 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       String comment = getComment(request);
       comments.add(comment);
@@ -45,10 +46,6 @@ public class DataServlet extends HttpServlet {
       response.sendRedirect("/index.html");
   }
 
-  /**
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
-   */
   private String getComment(HttpServletRequest request) {
     String value = request.getParameter("text-input");
     if (value == null) {
