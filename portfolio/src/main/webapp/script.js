@@ -52,16 +52,6 @@ function fixSite() {
   toggleVisibility('hide-div');
 }
 
-/*
-function getFruit() {
-  fetch('/data').then(response => response.json()).then((fruitlist) => {
-    document.getElementById('fruit-container').innerText = fruitlist.join(', ');
-
-  });
-  
-}
-*/ 
-
 function getComments() {
   fetch('/data').then(response => response.json()).then((comments) => {
     document.getElementById('comment-container').innerText = comments.join(', ');
