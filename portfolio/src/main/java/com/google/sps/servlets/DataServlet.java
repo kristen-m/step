@@ -27,6 +27,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.List;
+
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -47,14 +49,30 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = getComment(request);
+    /*String comment = getComment(request);
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("comment", comment);
     commentEntity.setProperty("timestamp", timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-    response.sendRedirect("/index.html");
+    */
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    List<Task> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String title = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Task comment = new Task(id, title, timestamp);
+      comments.add(comment);
+    }
+
+    Gson gson = new Gson();
+
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(comments));
   }
 
   private String getComment(HttpServletRequest request) {
