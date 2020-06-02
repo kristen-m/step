@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> fruits;
+  //private ArrayList<String> fruits;
+  private ArrayList<String> comments;
 
+/*
   @Override
   public void init(){
     fruits = new ArrayList<String>();
@@ -34,12 +36,36 @@ public class DataServlet extends HttpServlet {
     fruits.add("Apricot");
     fruits.add("Mango");
   }
+*/
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    String jsonfruit = gson.toJson(fruits);
     response.setContentType("application/json;");
-    response.getWriter().println(jsonfruit);
+    String json = new Gson().toJson(comments);
+    response.getWriter().println(json);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      comments = new ArrayList<String>();
+      String comment = getComment(request);
+      comments.add(comment);
+
+      response.setContentType("text/html");
+      response.sendRedirect("/index.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getComment(HttpServletRequest request) {
+    String value = request.getParameter("text-input");
+    if (value == null) {
+      return "";
+    }
+    return value;
   }
 }
+
+
+
