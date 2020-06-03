@@ -53,14 +53,17 @@ function fixSite() {
 }
 
 function getComments() {
-  fetch('/data').then(response => response.json()).then((comments) => {
+  const url = "/data?limit=" + getLimit();
+  console.log(url);
+  fetch(url).then(response => response.json()).then((comments) => {
+    console.log("inside json");
     document.getElementById('comment-container').innerText = comments.join(', ');
   });
 }
 
 function getLimit() {
-  const num = document.getElementById("limit-value").value;
-  console.log(num);
-  return num;
+  const limit = document.getElementById("limit").value;
+  console.log(limit);
+  return limit;
 }
 
