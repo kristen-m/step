@@ -28,6 +28,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
+import com.google.appengine.api.datastore.FetchOptions;
 import static java.lang.System.out;
 
 
@@ -40,11 +41,10 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     int limit = getCommentLimit(request);
-    response.setContentType("text/html");
-    response.getWriter().println(limit);
 
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()) {
+    List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
+    for (Entity entity : commentList) {
       long id = entity.getKey().getId();
       String comment = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
