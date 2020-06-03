@@ -58,3 +58,9 @@ function getComments() {
   });
 }
 
+function getLimit() {
+  const num = document.getElementById("limit-value").value;
+  console.log(num);
+  return num;
+}
+
