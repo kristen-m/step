@@ -28,6 +28,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
+import static java.lang.System.out;
 
 
 @WebServlet("/data")
@@ -38,7 +39,9 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    int limit = Integer.parseInt(request.getParameter("limit"));
+    int limit = getCommentLimit(request);
+    response.setContentType("text/html");
+    response.getWriter().println(limit);
 
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
@@ -72,7 +75,31 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-}
 
+
+
+  private int getCommentLimit(HttpServletRequest request) {
+    String commentLimitString = request.getParameter("limit");
+    int commentLimit;
+    if (commentLimitString == null){
+      commentLimit = -1;
+    }
+
+    try {
+      commentLimit = Integer.parseInt(commentLimitString);
+    } 
+    catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + commentLimitString);
+      return -1;
+    }
+
+    if (commentLimit < 1 || commentLimit > 10) {
+      System.err.println("User request out of range: " + commentLimitString);
+      return -1;
+    }
+    return commentLimit;
+  }
+
+}
 
 
