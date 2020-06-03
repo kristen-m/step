@@ -56,7 +56,6 @@ function getComments() {
   const url = "/data?limit=" + getLimit();
   console.log(url);
   fetch(url).then(response => response.json()).then((comments) => {
-    console.log("inside json");
     document.getElementById('comment-container').innerText = comments.join(', ');
   });
 }
