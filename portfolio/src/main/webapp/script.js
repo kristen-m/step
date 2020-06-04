@@ -54,7 +54,6 @@ function fixSite() {
 
 function getComments() {
   const url = "/data?limit=" + getLimit();
-  console.log(url);
   fetch(url).then(response => response.json()).then((comments) => {
     document.getElementById('comment-container').innerText = comments.join(', ');
   });
@@ -62,7 +61,6 @@ function getComments() {
 
 function getLimit() {
   const limit = document.getElementById("limit").value;
-  console.log(limit);
   return limit;
 }
 

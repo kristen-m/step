@@ -31,7 +31,6 @@ import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
 import static java.lang.System.out;
 
-
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   @Override
@@ -39,9 +38,7 @@ public class DataServlet extends HttpServlet {
     ArrayList<String> comments = new ArrayList<String>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
     int limit = getCommentLimit(request);
-
     PreparedQuery results = datastore.prepare(query);
     List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
     for (Entity entity : commentList) {
@@ -75,8 +72,6 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-
-
 
   private int getCommentLimit(HttpServletRequest request) {
     String commentLimitString = request.getParameter("limit");
