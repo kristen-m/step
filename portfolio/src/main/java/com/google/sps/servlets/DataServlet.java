@@ -29,7 +29,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
-import static java.lang.System.out;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
