@@ -68,7 +68,6 @@ function getComments() {
         replyButton.style.display = 'none';
         showReplyField(fullComment);
       });
-    
       fullComment.appendChild(commentText);
       fullComment.appendChild(replyButton);
       commentListElement.append(fullComment);
@@ -96,6 +95,7 @@ function showReplyField(fullComment) {
   replyForm.method = 'POST';
   replyBox.appendChild(replyForm);
   const replyText = document.createElement('textarea');
+  replyText.name = "reply-text";
   replyText.innerText = "Howdy";
   replyBox.appendChild(replyText);
   const submitButton = document.createElement('button');
