@@ -75,7 +75,7 @@ public class DataServlet extends HttpServlet {
   private int getCommentLimit(HttpServletRequest request) {
     String commentLimitString = request.getParameter("limit");
     int commentLimit;
-    if (commentLimitString == null){
+    if (commentLimitString == null) {
       commentLimit = -1;
     }
     try {
