@@ -32,6 +32,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  static final int DEFUALT_COMMENT_LIMIT = 3;
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<String> comments = new ArrayList<String>();  
@@ -76,17 +77,17 @@ public class DataServlet extends HttpServlet {
     String commentLimitString = request.getParameter("limit");
     int commentLimit;
     if (commentLimitString == null) {
-      commentLimit = -1;
+      commentLimit = DEFUALT_COMMENT_LIMIT;
     }
     try {
       commentLimit = Integer.parseInt(commentLimitString);
     } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + commentLimitString);
-      return -1;
+      return DEFUALT_COMMENT_LIMIT;
     }
     if (commentLimit < 1 || commentLimit > 15) {
       System.err.println("User request out of range: " + commentLimitString);
-      return -1;
+      return DEFUALT_COMMENT_LIMIT;
     }
     return commentLimit;
   }
