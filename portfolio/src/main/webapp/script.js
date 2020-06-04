@@ -55,7 +55,10 @@ function makeUglySite() {
 function getComments() {
   const url = "/data?limit=" + getLimit();
   fetch(url).then(response => response.json()).then((comments) => {
-    document.getElementById('comment-container').innerText = comments.join(', ');
+    const commentListElement = document.getElementById('comment-container');
+    comments.forEach((comment) => {
+      commentListElement.appendChild(createDivElement(comment));
+    })
   });
 }
 
@@ -64,3 +67,10 @@ function getLimit() {
   return limit;
 }
 
+/** Creates an <li> element containing text. */
+function createDivElement(text) {
+  const divElement = document.createElement('div');
+  divElement.className = "comment-class"
+  divElement.innerText = text;
+  return divElement;
+}
