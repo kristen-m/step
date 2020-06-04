@@ -174,9 +174,15 @@ h1 {
 
 .comment-class {
   background-color: #eee;
-  /*float: left;*/
   border: 1px solid #ccc;
-  cursor: pointer;
   padding: 20px;
   display: block;
+}
+
+.reply-button {
+  cursor: pointer;
+}
+
+.full-comment {
+  padding: 10px;
 }
