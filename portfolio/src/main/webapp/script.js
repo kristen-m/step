@@ -56,8 +56,9 @@ function getComments() {
   const url = "/data?limit=" + getLimit();
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
+    commentListElement.innerText = '';
     comments.forEach((comment) => {
-      commentListElement.appendChild(createDivElement(comment));
+      commentListElement.append(createDivElement(comment));
     })
   });
 }
@@ -67,7 +68,6 @@ function getLimit() {
   return limit;
 }
 
-/** Creates an <li> element containing text. */
 function createDivElement(text) {
   const divElement = document.createElement('div');
   divElement.className = "comment-class"
