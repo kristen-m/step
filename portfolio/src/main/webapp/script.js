@@ -39,14 +39,14 @@ function toggleVisibility(id) {
   }
 }
 
-function fixSite() {
+function makeUglySite() {
   const visuals = document.body;
   const buttons = document.getElementsByClassName('button');
-  visuals.style.fontFamily = 'Georgia';
-  visuals.style.color = '#000';
-  visuals.style.backgroundColor = 'white';
+  visuals.style.fontFamily = 'Comic Sans MS';
+  visuals.style.color = 'coral';
+  visuals.style.backgroundColor = 'cyan';
   for (let x = 0; x < buttons.length; x++) {
-    buttons[x].style.fontFamily = 'Georgia';
+    buttons[x].style.fontFamily = 'Comic Sans MS';
   }
   toggleVisibility('graphic')
   toggleVisibility('hide-div');

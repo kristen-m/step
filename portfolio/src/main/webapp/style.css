@@ -4,9 +4,9 @@ html {
 }
 
 body {
-    font-family: "Comic Sans MS";
-    background-color: cyan;
-    color: coral;
+    font-family: "Georgia";
+    background-color: white;
+    color: black;
 }
 
 img {
@@ -16,7 +16,7 @@ img {
 }
 
 button {
-    font-family: "Comic Sans MS";
+    font-family: "Georgia";
 }
 
 h1 {
@@ -73,6 +73,10 @@ h1 {
   content: "";
   clear: both;
   display: table;
+}
+
+#graphic {
+  display: none;
 }
 
 #joke-pic {
