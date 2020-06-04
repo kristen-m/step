@@ -65,7 +65,7 @@ function getComments() {
       replyButton.classList = "reply-button"
       replyButton.addEventListener('click', () => {
         console.log("reply button clicked");
-        replyButton.classList.add("hidden");
+        replyButton.style.display = 'none';
         showReplyField(fullComment);
       });
     
