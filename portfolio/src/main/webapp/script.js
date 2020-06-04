@@ -53,24 +53,31 @@ function makeUglySite() {
 }
 
 function getComments() {
-  const url = "/data?limit=" + getLimit();
+  const url = '/data?limit=' + getLimit();
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
     comments.forEach((comment) => {
-      commentListElement.append(createDivElement(comment));
+      const fullComment = createDivElement('', 'full-comment')
+      const commentText = createDivElement(comment, 'comment-class')
+      const replyButton = document.createElement('button');
+      replyButton.textContent = 'Reply';
+      replyButton.classList = "reply-button"
+      fullComment.appendChild(commentText);
+      fullComment.appendChild(replyButton);
+      commentListElement.append(fullComment);
     })
   });
 }
 
 function getLimit() {
-  const limit = document.getElementById("limit").value;
+  const limit = document.getElementById('limit').value;
   return limit;
 }
 
-function createDivElement(text) {
+function createDivElement(text, className) {
   const divElement = document.createElement('div');
-  divElement.className = "comment-class"
+  divElement.classList = className;
   divElement.innerText = text;
   return divElement;
 }
