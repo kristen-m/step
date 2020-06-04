@@ -58,13 +58,12 @@ function getComments() {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
     comments.forEach((comment) => {
-      const fullComment = createDivElement('', 'full-comment')
-      const commentText = createDivElement(comment, 'comment-class')
+      const fullComment = createDivElement('', 'full-comment');
+      const commentText = createDivElement(comment, 'comment-class');
       const replyButton = document.createElement('button');
       replyButton.textContent = 'Reply';
-      replyButton.classList = "reply-button"
+      replyButton.classList = 'reply-button';
       replyButton.addEventListener('click', () => {
-        console.log("reply button clicked");
         replyButton.style.display = 'none';
         showReplyField(fullComment);
       });
@@ -88,20 +87,19 @@ function createDivElement(text, className) {
 }
 
 function showReplyField(fullComment) {
-  console.log("in show reply function");
-  const replyBox = createDivElement('', 'reply-container')
+  const replyBox = createDivElement('', 'reply-container');
   const replyForm = document.createElement('form');
   replyForm.action = '/data';
   replyForm.method = 'POST';
   replyBox.appendChild(replyForm);
   const replyText = document.createElement('textarea');
-  replyText.name = "reply-text";
-  replyText.innerText = "Howdy";
+  replyText.name = 'reply-text';
+  replyText.innerText = "[Your reply here]";
   replyBox.appendChild(replyText);
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.value = 'Reply';
-  submitButton.innerText = "Reply";
+  submitButton.innerText = 'Reply';
   replyBox.appendChild(submitButton);
   fullComment.appendChild(replyBox);
 }
