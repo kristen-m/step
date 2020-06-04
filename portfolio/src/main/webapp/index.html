@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
-
-<body onload="getComments()">
+<body>
     <div id="content">
         <h1>Kristen's Portfolio</h1>
         <div class="tab">
@@ -26,6 +25,18 @@
             </div>
             <div id="hide-div">
               <button class="button" id="show-button button" onclick="makeUglySite()">Click to make page ugly</button>
+            </div>
+            <form action="/data" method="POST">
+              <p>Have something to say? Let me know:</p>
+              <textarea name="text-input">Post your comment here!</textarea>
+              <input type="submit"/>
+            </form>
+            <p>How many comments would you like to see?</p>
+              <input id="limit" type="number" name="limit" min="1" max="15" value="1">
+              <input type="submit" onclick="getComments()"/>
+            <div id="comment-content">
+              <h4>Read some old comments:</h4>
+              <div id="comment-container"></div>
             </div>
         </div>
         <div id="about-me" class="tabcontent">
@@ -115,17 +126,6 @@
                 <li>Cutting down on my screentime</li>
                 <li>Going on hikes around town</li>
             </ul>
-
-            <form action="/data" method="POST">
-
-              <p>Have something to say? Let me know:</p>
-              <textarea name="text-input">Post your comment here!</textarea>
-              <input type="submit" />
-            </form>
-            <div id="comment-content">
-              <h4>Read some old comments:</h4>
-              <div id="comment-container"></div>
-            </div>
         </div>
         <div id="travel-blog" class="tabcontent">
             <h2> Travel Blog </h2>

@@ -53,8 +53,14 @@ function makeUglySite() {
 }
 
 function getComments() {
-  fetch('/data').then(response => response.json()).then((comments) => {
+  const url = "/data?limit=" + getLimit();
+  fetch(url).then(response => response.json()).then((comments) => {
     document.getElementById('comment-container').innerText = comments.join(', ');
   });
+}
+
+function getLimit() {
+  const limit = document.getElementById("limit").value;
+  return limit;
 }
 

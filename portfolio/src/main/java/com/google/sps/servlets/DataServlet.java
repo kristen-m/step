@@ -28,17 +28,20 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
-
+import com.google.appengine.api.datastore.FetchOptions;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  static final int DEFUALT_COMMENT_LIMIT = 3;
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<String> comments = new ArrayList<String>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    int limit = getCommentLimit(request);
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()) {
+    List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
+    for (Entity entity : commentList) {
       long id = entity.getKey().getId();
       String comment = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
@@ -69,7 +72,26 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-}
 
+  private int getCommentLimit(HttpServletRequest request) {
+    String commentLimitString = request.getParameter("limit");
+    int commentLimit;
+    if (commentLimitString == null) {
+      commentLimit = DEFUALT_COMMENT_LIMIT;
+    }
+    try {
+      commentLimit = Integer.parseInt(commentLimitString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + commentLimitString);
+      return DEFUALT_COMMENT_LIMIT;
+    }
+    if (commentLimit < 1 || commentLimit > 15) {
+      System.err.println("User request out of range: " + commentLimitString);
+      return DEFUALT_COMMENT_LIMIT;
+    }
+    return commentLimit;
+  }
+
+}
 
 
