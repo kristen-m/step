@@ -79,16 +79,13 @@ public class DataServlet extends HttpServlet {
     if (commentLimitString == null){
       commentLimit = -1;
     }
-
     try {
       commentLimit = Integer.parseInt(commentLimitString);
-    } 
-    catch (NumberFormatException e) {
+    } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + commentLimitString);
       return -1;
     }
-
-    if (commentLimit < 1 || commentLimit > 10) {
+    if (commentLimit < 1 || commentLimit > 15) {
       System.err.println("User request out of range: " + commentLimitString);
       return -1;
     }
