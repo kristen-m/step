@@ -14,27 +14,4 @@ public class Comment {
     this.id = id;
   }
 
-  public String getContent() {
-    return content;
-  }
-
-  public String getPostTime() {
-    return postTime;
-  }
-
-  public boolean isReply() {
-    return this.parent!=null;
-  }
-
-  public long getId(){
-    return this.id;
-  }
-
-  public void setId(long newId) {
-    this.id = newId;
-  }
-
-  public void setParent(Comment p) {
-    this.parent = p;
-  }
 }
