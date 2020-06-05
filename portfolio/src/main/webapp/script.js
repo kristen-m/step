@@ -81,7 +81,7 @@ function getLimit() {
 
 function createDivElement(text, className) {
   const divElement = document.createElement('div');
-  divElement.classList = className;
+  divElement.classList.add(className);
   divElement.innerText = text;
   return divElement;
 }
