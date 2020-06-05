@@ -35,6 +35,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 public class ReplyServlet extends HttpServlet {
   static final int DEFUALT_REPLY_LIMIT = 2;
 
+  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<String> replies = new ArrayList<String>();  
     Query query = new Query("Reply").addSort("timestamp", SortDirection.DESCENDING);
@@ -50,6 +51,7 @@ public class ReplyServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(replies));
   }
 
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String reply = getReply(request);
     long timestamp = System.currentTimeMillis();
@@ -63,11 +65,11 @@ public class ReplyServlet extends HttpServlet {
   }
 
   private String getReply(HttpServletRequest request) {
-  String reply = request.getParameter("text-input");
-  if (reply == null) {
-    return "";
-  }
-  return reply;
-  }
+    String reply = request.getParameter("reply-text");
+    if (reply == null) {
+      return "";
+    }
+    return reply;
+    }
 
 }
