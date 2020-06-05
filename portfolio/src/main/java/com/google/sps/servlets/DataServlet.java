@@ -29,13 +29,14 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.sps.data.Comment;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   static final int DEFUALT_COMMENT_LIMIT = 3;
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> comments = new ArrayList<String>();  
+    ArrayList<Comment> comments = new ArrayList<Comment>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     int limit = getCommentLimit(request);
@@ -43,8 +44,9 @@ public class DataServlet extends HttpServlet {
     List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
     for (Entity entity : commentList) {
       long id = entity.getKey().getId();
-      String comment = (String) entity.getProperty("comment");
+      String commentText = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
+      Comment comment = new Comment(commentText, timestamp, null);
       comments.add(comment);
     }
     Gson gson = new Gson();
