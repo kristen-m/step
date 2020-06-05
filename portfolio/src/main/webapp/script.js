@@ -91,15 +91,16 @@ function showReplyField(fullComment) {
   const replyForm = document.createElement('form');
   replyForm.action = '/data';
   replyForm.method = 'POST';
-  replyBox.appendChild(replyForm);
   const replyText = document.createElement('textarea');
   replyText.name = 'reply-text';
   replyText.innerText = "[Your reply here]";
-  replyBox.appendChild(replyText);
+  replyForm.appendChild(replyText);
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
-  submitButton.value = 'Reply';
+  submitButton.value = 'reply-text';
   submitButton.innerText = 'Reply';
-  replyBox.appendChild(submitButton);
+  replyForm.appendChild(submitButton);
+  replyBox.appendChild(replyForm);
   fullComment.appendChild(replyBox);
 }
+
