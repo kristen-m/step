@@ -57,11 +57,8 @@ function getComments() {
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
-    console.log(comments);
-    comments.forEach((comment) => {
-      console.log(comment);
-      console.log(comment['content']);
-      const commentText = comment['content'];
+    for(let i = 0; i < comments.length; i++) {
+      const commentText = comments[i]['content'];
       const fullComment = createDivElement('', 'full-comment');
       const commentTextElement = createDivElement(commentText, 'comment-class');
       const replyButton = document.createElement('button');
@@ -74,7 +71,7 @@ function getComments() {
       fullComment.appendChild(commentTextElement);
       fullComment.appendChild(replyButton);
       commentListElement.append(fullComment);
-    })
+    }
   });
 }
 
@@ -103,27 +100,16 @@ function showReplyField(fullComment) {
   submitButton.type = 'submit';
   submitButton.value = 'reply-text';
   submitButton.innerText = 'Reply';
-  submitButton.addEventListener('click', getReplies()); 
   replyForm.appendChild(submitButton);
   replyBox.appendChild(replyForm);
   fullComment.appendChild(replyBox);
 }
 
-function getReplies() {
-  console.log("inside getReplies function");
-  fetch('/reply').then(response => response.text()).then((reply) => {
-    console.log('reply');
-    const replyText = reply[content];
-    console.log(replyText);
-    document.getElementById('reply-text-box').innerText = replyText;
+function viewReplies() {
+   fetch('/reply').then(response => response.json()).then((replies) => {
+    for (let i = 0; i < replies.length; i++) {
+      const replyText = replies[i]['content'];
+      document.getElementById('reply-content').innerText = replyText;
+    }
   });
 }
-
-/*Leaving in for reference
-function getParent(position) {
-  console.log("Inside getParent function)");
-  console.log($(document).ready(function(){
-    $(position).parent( ".comment-class" ).innerText
-  }));
-}
-*/
