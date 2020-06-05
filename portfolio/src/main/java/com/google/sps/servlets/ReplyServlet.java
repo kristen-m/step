@@ -26,6 +26,24 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/reply")
 public class ReplyServlet extends HttpServlet {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String reply = getReply(request);
+    long timestamp = System.currentTimeMillis();
+    Entity replyEntity = new Entity("Reply");
+    replyEntity.setProperty("reply", comment);
+    replyEntity.setProperty("timestamp", timestamp);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+    response.setContentType("text/html");
+    response.sendRedirect("/index.html");
+  }
 
+  private String getReply(HttpServletRequest request) {
+  String reply = request.getParameter("text-input");
+  if (reply == null) {
+    return "";
+  }
+  return reply;
+  }
 
 }
