@@ -57,9 +57,13 @@ function getComments() {
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
+    console.log(comments);
     comments.forEach((comment) => {
+      console.log(comment);
+      console.log(comment['content']);
+      const commentText = comment['content'];
       const fullComment = createDivElement('', 'full-comment');
-      const commentText = createDivElement(comment, 'comment-class');
+      const commentTextElement = createDivElement(commentText, 'comment-class');
       const replyButton = document.createElement('button');
       replyButton.textContent = 'Reply';
       replyButton.classList = 'reply-button';
@@ -67,7 +71,7 @@ function getComments() {
         replyButton.style.display = 'none';
         showReplyField(fullComment);
       });
-      fullComment.appendChild(commentText);
+      fullComment.appendChild(commentTextElement);
       fullComment.appendChild(replyButton);
       commentListElement.append(fullComment);
     })
@@ -99,7 +103,7 @@ function showReplyField(fullComment) {
   submitButton.type = 'submit';
   submitButton.value = 'reply-text';
   submitButton.innerText = 'Reply';
-  submitButton.onclick = getReplies();
+  submitButton.addEventListener('click', getReplies()); 
   replyForm.appendChild(submitButton);
   replyBox.appendChild(replyForm);
   fullComment.appendChild(replyBox);
@@ -107,8 +111,19 @@ function showReplyField(fullComment) {
 
 function getReplies() {
   console.log("inside getReplies function");
-  fetch('/reply').then(response => response.text()).then((replyText) => {
+  fetch('/reply').then(response => response.text()).then((reply) => {
+    console.log('reply');
+    const replyText = reply[content];
+    console.log(replyText);
     document.getElementById('reply-text-box').innerText = replyText;
   });
 }
 
+/*Leaving in for reference
+function getParent(position) {
+  console.log("Inside getParent function)");
+  console.log($(document).ready(function(){
+    $(position).parent( ".comment-class" ).innerText
+  }));
+}
+*/
