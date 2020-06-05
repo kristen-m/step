@@ -99,8 +99,16 @@ function showReplyField(fullComment) {
   submitButton.type = 'submit';
   submitButton.value = 'reply-text';
   submitButton.innerText = 'Reply';
+  submitButton.onclick = getReplies();
   replyForm.appendChild(submitButton);
   replyBox.appendChild(replyForm);
   fullComment.appendChild(replyBox);
+}
+
+function getReplies() {
+  console.log("inside getReplies function");
+  fetch('/reply').then(response => response.text()).then((replyText) => {
+    document.getElementById('reply-text-box').innerText = replyText;
+  });
 }
 
