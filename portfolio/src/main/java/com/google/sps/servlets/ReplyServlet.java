@@ -13,27 +13,51 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-import com.google.common.io.CharStreams;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.List;
+import com.google.appengine.api.datastore.FetchOptions;
+
 
 @WebServlet("/reply")
 public class ReplyServlet extends HttpServlet {
+  static final int DEFUALT_REPLY_LIMIT = 2;
+
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ArrayList<String> replies = new ArrayList<String>();  
+    Query query = new Query("Reply").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    List<Entity> replyList = results.asList(FetchOptions.Builder.withLimit(DEFUALT_REPLY_LIMIT)); 
+    for (Entity entity : replyList) {
+      String reply = (String) entity.getProperty("reply");
+      replies.add(reply);
+    }
+    Gson gson = new Gson();
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(replies));
+  }
+
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String reply = getReply(request);
     long timestamp = System.currentTimeMillis();
     Entity replyEntity = new Entity("Reply");
-    replyEntity.setProperty("reply", comment);
+    replyEntity.setProperty("reply", reply);
     replyEntity.setProperty("timestamp", timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    datastore.put(replyEntity);
     response.setContentType("text/html");
     response.sendRedirect("/index.html");
   }
