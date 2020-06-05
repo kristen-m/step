@@ -4,9 +4,9 @@ package com.google.sps.data;
 public class Comment {
   private String content;
   private Comment parent;
-  private long postTime;
+  private String postTime;
 
-  public Comment(String content, long postTime, Comment parent) {
+  public Comment(String content, String postTime, Comment parent) {
     this.content = content;
     this.postTime = postTime;
     this.parent = parent;
@@ -16,7 +16,7 @@ public class Comment {
     return content;
   }
 
-  public long getPostTime() {
+  public String getPostTime() {
     return postTime;
   }
 
