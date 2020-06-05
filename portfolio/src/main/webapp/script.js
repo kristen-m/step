@@ -89,7 +89,7 @@ function createDivElement(text, className) {
 function showReplyField(fullComment) {
   const replyBox = createDivElement('', 'reply-container');
   const replyForm = document.createElement('form');
-  replyForm.action = '/data';
+  replyForm.action = '/reply';
   replyForm.method = 'POST';
   const replyText = document.createElement('textarea');
   replyText.name = 'reply-text';
