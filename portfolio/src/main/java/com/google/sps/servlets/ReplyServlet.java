@@ -44,9 +44,10 @@ public class ReplyServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     List<Entity> replyList = results.asList(FetchOptions.Builder.withLimit(DEFUALT_REPLY_LIMIT)); 
     for (Entity entity : replyList) {
+      long id = entity.getKey().getId();
       String replyText = (String) entity.getProperty("reply");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
-      Comment reply = new Comment(replyText, timestamp, null);
+      Comment reply = new Comment(replyText, timestamp, null, id);
 
       replies.add(reply);
     }
