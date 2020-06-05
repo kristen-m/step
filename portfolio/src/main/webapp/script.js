@@ -53,14 +53,53 @@ function makeUglySite() {
 }
 
 function getComments() {
-  const url = "/data?limit=" + getLimit();
+  const url = '/data?limit=' + getLimit();
   fetch(url).then(response => response.json()).then((comments) => {
-    document.getElementById('comment-container').innerText = comments.join(', ');
+    const commentListElement = document.getElementById('comment-container');
+    commentListElement.innerText = '';
+    comments.forEach((comment) => {
+      const fullComment = createDivElement('', 'full-comment');
+      const commentText = createDivElement(comment, 'comment-class');
+      const replyButton = document.createElement('button');
+      replyButton.textContent = 'Reply';
+      replyButton.classList = 'reply-button';
+      replyButton.addEventListener('click', () => {
+        replyButton.style.display = 'none';
+        showReplyField(fullComment);
+      });
+      fullComment.appendChild(commentText);
+      fullComment.appendChild(replyButton);
+      commentListElement.append(fullComment);
+    })
   });
 }
 
 function getLimit() {
-  const limit = document.getElementById("limit").value;
+  const limit = document.getElementById('limit').value;
   return limit;
 }
 
+function createDivElement(text, className) {
+  const divElement = document.createElement('div');
+  divElement.classList.add(className);
+  divElement.innerText = text;
+  return divElement;
+}
+
+function showReplyField(fullComment) {
+  const replyBox = createDivElement('', 'reply-container');
+  const replyForm = document.createElement('form');
+  replyForm.action = '/data';
+  replyForm.method = 'POST';
+  replyBox.appendChild(replyForm);
+  const replyText = document.createElement('textarea');
+  replyText.name = 'reply-text';
+  replyText.innerText = "[Your reply here]";
+  replyBox.appendChild(replyText);
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.value = 'Reply';
+  submitButton.innerText = 'Reply';
+  replyBox.appendChild(submitButton);
+  fullComment.appendChild(replyBox);
+}

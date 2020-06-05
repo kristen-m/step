@@ -85,7 +85,7 @@ h1 {
 }
 
 #bread {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .col {
@@ -166,4 +166,19 @@ h1 {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.comment-class {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: block;
+}
+
+.reply-button {
+  cursor: pointer;
+}
+
+.full-comment {
+  padding: 10px;
 }
