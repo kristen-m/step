@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : commentList) {
       long id = entity.getKey().getId();
       String commentText = (String) entity.getProperty("comment");
-      long timestamp = (long) entity.getProperty("timestamp");
+      String timestamp = String.valueOf(entity.getProperty("timestamp"));
       Comment comment = new Comment(commentText, timestamp, null);
       comments.add(comment);
     }

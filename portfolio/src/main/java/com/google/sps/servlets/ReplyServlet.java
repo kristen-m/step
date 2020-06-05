@@ -29,6 +29,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.sps.data.Comment;
 
 
 @WebServlet("/reply")
@@ -37,13 +38,16 @@ public class ReplyServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> replies = new ArrayList<String>();  
+    ArrayList<Comment> replies = new ArrayList<Comment>();  
     Query query = new Query("Reply").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     List<Entity> replyList = results.asList(FetchOptions.Builder.withLimit(DEFUALT_REPLY_LIMIT)); 
     for (Entity entity : replyList) {
-      String reply = (String) entity.getProperty("reply");
+      String replyText = (String) entity.getProperty("reply");
+      String timestamp = String.valueOf(entity.getProperty("timestamp"));
+      Comment reply = new Comment(replyText, timestamp, null);
+
       replies.add(reply);
     }
     Gson gson = new Gson();
