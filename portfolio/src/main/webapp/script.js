@@ -114,10 +114,45 @@ function viewReplies() {
   });
 }
 
+const LOCATIONS = [
+  ['Twelve Apostles', -38.6621, 143.1051],
+  ['Sydney Opera House', -33.8568, 151.2153],
+  ['Rocky Mountain NP', 40.3428, -105.6836],
+  ['Channel Islands NP', 34.0069, -119.7785],
+  ['Zion NP', 37.2982, -113.0263],
+  ['Bryce Canyon NP', 37.5930, -112.1871],
+  ['Arches NP', 38.7331, -109.5925],
+  ['Canyonlands NP', 38.3269, -109.8783],
+  ['Death Valley NP', 36.5054, -117.0794],
+  ['Capitol Reef NP', 38.3670, -111.2615],
+  ['Pinnacles NP', 36.4906, -121.1825],
+  ['Joshua Tree NP', 33.8734, -115.9010],
+  ['Petrified Forest NP', 34.9100, -109.8068],
+  ['Scripps College', 34.1038, -117.7110],
+  ['Antelope Valley', 34.7514, -118.2523]
+  ];
 
+const CENTER_COORDS = new google.maps.LatLng(0, 0);
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 1,
-    center: {lat: 59.325, lng: 18.070}
+    center: CENTER_COORDS
   });
+  for (let i = 0; i < LOCATIONS.length; i++) {  
+    let marker = new google.maps.Marker({
+    position: new google.maps.LatLng(LOCATIONS[i][1], LOCATIONS[i][2]),
+    animation: google.maps.Animation.DROP,
+    map: map
+    });
+    
+    marker.addListener('click', () => {
+      map.setZoom(11);
+      map.setCenter(marker.getPosition());
+    });
+  }
+
 }
+
+
+
+
