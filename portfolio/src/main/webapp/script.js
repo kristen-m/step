@@ -202,9 +202,10 @@ function initMap() {
     zoom: 1,
     center: CENTER_COORDS
   });
-  for (let i = 0; i < LOCATIONS.length; i++) { 
+  LOCATIONS.forEach(location => {
+  //for (let i = 0; i < LOCATIONS.length; i++)  
     let marker = new google.maps.Marker({
-      position: new google.maps.LatLng(LOCATIONS[i].lat, LOCATIONS[i].lng),
+      position: new google.maps.LatLng(location.lat, location.lng),
       animation: google.maps.Animation.DROP,
       map: map
     });
@@ -213,16 +214,15 @@ function initMap() {
       map.setCenter(marker.getPosition());
     });
     let infowindow = new google.maps.InfoWindow({
-      content: LOCATIONS[i].name
+      content: location.name
     });
     marker.addListener('mouseover', () => {
       infowindow.open(map, marker);
     });
     marker.addListener('mouseout', () => {
       infowindow.close();
-    });
-    
-  }
+    });  
+  });
 
 }
 
