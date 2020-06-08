@@ -141,11 +141,11 @@ function initMap() {
   for (let i = 0; i < locations.length; i++) {  
     var marker = new google.maps.Marker({
     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-    map: map
-    animation: google.Maps.Animation.DROP;
+    animation: google.maps.Animation.DROP,
+    map: map,
     });
-
     marker.addListener('click', function() {
+    map.panTo(marker.getPosition());
     map.setZoom(11);
     map.setCenter(marker.getPosition());
     });
