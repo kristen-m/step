@@ -57,9 +57,10 @@ function getComments() {
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
-    comments.forEach((comment) => {
+    for(let i = 0; i < comments.length; i++) {
+      const commentText = comments[i]['content'];
       const fullComment = createDivElement('', 'full-comment');
-      const commentText = createDivElement(comment, 'comment-class');
+      const commentTextElement = createDivElement(commentText, 'comment-class');
       const replyButton = document.createElement('button');
       replyButton.textContent = 'Reply';
       replyButton.classList = 'reply-button';
@@ -67,10 +68,10 @@ function getComments() {
         replyButton.style.display = 'none';
         showReplyField(fullComment);
       });
-      fullComment.appendChild(commentText);
+      fullComment.appendChild(commentTextElement);
       fullComment.appendChild(replyButton);
       commentListElement.append(fullComment);
-    })
+    }
   });
 }
 
@@ -89,17 +90,26 @@ function createDivElement(text, className) {
 function showReplyField(fullComment) {
   const replyBox = createDivElement('', 'reply-container');
   const replyForm = document.createElement('form');
-  replyForm.action = '/data';
+  replyForm.action = '/reply';
   replyForm.method = 'POST';
-  replyBox.appendChild(replyForm);
   const replyText = document.createElement('textarea');
   replyText.name = 'reply-text';
   replyText.innerText = "[Your reply here]";
-  replyBox.appendChild(replyText);
+  replyForm.appendChild(replyText);
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
-  submitButton.value = 'Reply';
+  submitButton.value = 'reply-text';
   submitButton.innerText = 'Reply';
-  replyBox.appendChild(submitButton);
+  replyForm.appendChild(submitButton);
+  replyBox.appendChild(replyForm);
   fullComment.appendChild(replyBox);
+}
+
+function viewReplies() {
+   fetch('/reply').then(response => response.json()).then((replies) => {
+    for (let i = 0; i < replies.length; i++) {
+      const replyText = replies[i]['content'];
+      document.getElementById('reply-content').innerText = replyText;
+    }
+  });
 }

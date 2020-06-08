@@ -31,69 +31,50 @@ import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.sps.data.Comment;
 
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-  static final int DEFUALT_COMMENT_LIMIT = 3;
+
+@WebServlet("/reply")
+public class ReplyServlet extends HttpServlet {
+  static final int DEFUALT_REPLY_LIMIT = 2;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<Comment> comments = new ArrayList<Comment>();  
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    ArrayList<Comment> replies = new ArrayList<Comment>();  
+    Query query = new Query("Reply").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    int limit = getCommentLimit(request);
     PreparedQuery results = datastore.prepare(query);
-    List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
-    for (Entity entity : commentList) {
+    List<Entity> replyList = results.asList(FetchOptions.Builder.withLimit(DEFUALT_REPLY_LIMIT)); 
+    for (Entity entity : replyList) {
       long id = entity.getKey().getId();
-      String commentText = (String) entity.getProperty("comment");
+      String replyText = (String) entity.getProperty("reply");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
-      Comment comment = new Comment(commentText, timestamp, null, id);
-      comments.add(comment);
+      Comment reply = new Comment(replyText, timestamp, null, id);
+
+      replies.add(reply);
     }
     Gson gson = new Gson();
     response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
+    response.getWriter().println(gson.toJson(replies));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = getComment(request);
+    String reply = getReply(request);
     long timestamp = System.currentTimeMillis();
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("comment", comment);
-    commentEntity.setProperty("timestamp", timestamp);
+    Entity replyEntity = new Entity("Reply");
+    replyEntity.setProperty("reply", reply);
+    replyEntity.setProperty("timestamp", timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    datastore.put(replyEntity);
     response.setContentType("text/html");
     response.sendRedirect("/index.html");
   }
 
-  private String getComment(HttpServletRequest request) {
-    String value = request.getParameter("text-input");
-    if (value == null) {
+  private String getReply(HttpServletRequest request) {
+    String reply = request.getParameter("reply-text");
+    if (reply == null) {
       return "";
     }
-    return value;
-  }
-
-  private int getCommentLimit(HttpServletRequest request) {
-    String commentLimitString = request.getParameter("limit");
-    int commentLimit;
-    if (commentLimitString == null) {
-      commentLimit = DEFUALT_COMMENT_LIMIT;
+    return reply;
     }
-    try {
-      commentLimit = Integer.parseInt(commentLimitString);
-    } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + commentLimitString);
-      return DEFUALT_COMMENT_LIMIT;
-    }
-    if (commentLimit < 1 || commentLimit > 15) {
-      System.err.println("User request out of range: " + commentLimitString);
-      return DEFUALT_COMMENT_LIMIT;
-    }
-    return commentLimit;
-  }
 
 }
-
-
