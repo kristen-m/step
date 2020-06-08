@@ -115,22 +115,86 @@ function viewReplies() {
 }
 
 const LOCATIONS = [
-  ['Twelve Apostles', -38.6621, 143.1051],
-  ['Sydney Opera House', -33.8568, 151.2153],
-  ['Rocky Mountain NP', 40.3428, -105.6836],
-  ['Channel Islands NP', 34.0069, -119.7785],
-  ['Zion NP', 37.2982, -113.0263],
-  ['Bryce Canyon NP', 37.5930, -112.1871],
-  ['Arches NP', 38.7331, -109.5925],
-  ['Canyonlands NP', 38.3269, -109.8783],
-  ['Death Valley NP', 36.5054, -117.0794],
-  ['Capitol Reef NP', 38.3670, -111.2615],
-  ['Pinnacles NP', 36.4906, -121.1825],
-  ['Joshua Tree NP', 33.8734, -115.9010],
-  ['Petrified Forest NP', 34.9100, -109.8068],
-  ['Scripps College', 34.1038, -117.7110],
-  ['Antelope Valley', 34.7514, -118.2523]
-  ];
+  {
+    name: 'The Twelve Apostles',
+    lat: -38.6621,
+    lng: 143.1051
+  },
+  {
+    name: 'Sydney Opera House',
+    lat: -33.8568,
+    lng: 151.2153
+  },
+  {
+    name: 'Rocky Mountains National Park',
+    lat: 40.3428,
+    lng: -105.6836
+  },
+  {
+    name: 'Sydney Opera House',
+    lat: -33.8568,
+    lng: 151.2153
+  },
+  {
+    name: 'Channel Islands National Park', 
+    lat: 34.0069,
+    lng: -119.7785
+  },
+  {
+    name: 'Zion National Park', 
+    lat: 37.2982,
+    lng: -113.0263
+  },
+  {
+    name: 'Bryce Canyon National Park', 
+    lat: 37.5930, 
+    lng: -112.1871
+  },
+  {
+    name: 'Arches National Park', 
+    lat: 38.7331, 
+    lng: -109.5925
+  },
+  {
+    name: 'Canyonlands National Park', 
+    lat: 38.3269, 
+    lng: -109.8783
+  },
+  {
+    name: 'Death Valley National Park', 
+    lat: 36.5054, 
+    lng: -117.0794
+  },
+  {
+    name: 'Capitol Reef National Park', 
+    lat: 38.3670, 
+    lng: -111.2615
+  },
+  {
+    name: 'Pinnacles National Park', 
+    lat: 36.4906, 
+    lng: -121.1825
+  },
+  {
+    name: 'Joshua Tree National Park', 
+    lat: 33.8734, 
+    lng: -115.9010
+  },
+  {
+    name: 'Petrified Forest National Park', 
+    lat: 34.9100, 
+    lng: -109.8068
+  },
+  {
+    name: 'Scripps College', 
+    lat: 34.1038, 
+    lng: -117.7110
+  },
+  {
+    name: 'Antelope Valley, California', 
+    lat: 34.7514, 
+    lng: -118.2523
+  }];
 
 const CENTER_COORDS = new google.maps.LatLng(0, 0);
 function initMap() {
@@ -138,18 +202,27 @@ function initMap() {
     zoom: 1,
     center: CENTER_COORDS
   });
-  for (let i = 0; i < LOCATIONS.length; i++) {  
+  LOCATIONS.forEach(location => {
+  //for (let i = 0; i < LOCATIONS.length; i++)  
     let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(LOCATIONS[i][1], LOCATIONS[i][2]),
-    animation: google.maps.Animation.DROP,
-    map: map
+      position: new google.maps.LatLng(location.lat, location.lng),
+      animation: google.maps.Animation.DROP,
+      map: map
     });
-    
     marker.addListener('click', () => {
       map.setZoom(11);
       map.setCenter(marker.getPosition());
     });
-  }
+    let infowindow = new google.maps.InfoWindow({
+      content: location.name
+    });
+    marker.addListener('mouseover', () => {
+      infowindow.open(map, marker);
+    });
+    marker.addListener('mouseout', () => {
+      infowindow.close();
+    });  
+  });
 
 }
 
