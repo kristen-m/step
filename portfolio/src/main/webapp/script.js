@@ -140,17 +140,17 @@ function initMap() {
   });
   for (let i = 0; i < LOCATIONS.length; i++) {  
     let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    position: new google.maps.LatLng(LOCATIONS[i][1], LOCATIONS[i][2]),
     animation: google.maps.Animation.DROP,
     map: map
     });
     
     marker.addListener('click', () => {
-      map.panTo(marker.getPosition());
       map.setZoom(11);
       map.setCenter(marker.getPosition());
     });
   }
+
 }
 
 
