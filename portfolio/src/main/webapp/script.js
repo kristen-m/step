@@ -115,21 +115,21 @@ function viewReplies() {
 }
 
 const LOCATIONS = [
-  ['Twelve Apostles', -38.6621, 143.1051],
+  ['The Twelve Apostles', -38.6621, 143.1051],
   ['Sydney Opera House', -33.8568, 151.2153],
-  ['Rocky Mountain NP', 40.3428, -105.6836],
-  ['Channel Islands NP', 34.0069, -119.7785],
-  ['Zion NP', 37.2982, -113.0263],
-  ['Bryce Canyon NP', 37.5930, -112.1871],
-  ['Arches NP', 38.7331, -109.5925],
-  ['Canyonlands NP', 38.3269, -109.8783],
-  ['Death Valley NP', 36.5054, -117.0794],
-  ['Capitol Reef NP', 38.3670, -111.2615],
-  ['Pinnacles NP', 36.4906, -121.1825],
-  ['Joshua Tree NP', 33.8734, -115.9010],
-  ['Petrified Forest NP', 34.9100, -109.8068],
+  ['Rocky Mountain National Park', 40.3428, -105.6836],
+  ['Channel Islands National Park', 34.0069, -119.7785],
+  ['Zion National Park', 37.2982, -113.0263],
+  ['Bryce Canyon National Park', 37.5930, -112.1871],
+  ['Arches National Park', 38.7331, -109.5925],
+  ['Canyonlands National Park', 38.3269, -109.8783],
+  ['Death Valley National Park', 36.5054, -117.0794],
+  ['Capitol Reef National Park', 38.3670, -111.2615],
+  ['Pinnacles National Park', 36.4906, -121.1825],
+  ['Joshua Tree National Park', 33.8734, -115.9010],
+  ['Petrified Forest National Park', 34.9100, -109.8068],
   ['Scripps College', 34.1038, -117.7110],
-  ['Antelope Valley', 34.7514, -118.2523]
+  ['Antelope Valley, California', 34.7514, -118.2523]
   ];
 
 const CENTER_COORDS = new google.maps.LatLng(0, 0);
