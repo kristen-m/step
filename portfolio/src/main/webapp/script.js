@@ -114,7 +114,7 @@ function viewReplies() {
   });
 }
 
-const locations = [
+const LOCATIONS = [
   ['Twelve Apostles', -38.6621, 143.1051],
   ['Sydney Opera House', -33.8568, 151.2153],
   ['Rocky Mountain NP', 40.3428, -105.6836],
@@ -132,22 +132,23 @@ const locations = [
   ['Antelope Valley', 34.7514, -118.2523]
   ];
 
-const centerCoords = new google.maps.LatLng(0, 0);
+const CENTER_COORDS = new google.maps.LatLng(0, 0);
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 1,
-    center: centerCoords
+    center: CENTER_COORDS
   });
-  for (let i = 0; i < locations.length; i++) {  
-    var marker = new google.maps.Marker({
+  for (let i = 0; i < LOCATIONS.length; i++) {  
+    let marker = new google.maps.Marker({
     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
     animation: google.maps.Animation.DROP,
-    map: map,
+    map: map
     });
-    marker.addListener('click', function() {
-    map.panTo(marker.getPosition());
-    map.setZoom(11);
-    map.setCenter(marker.getPosition());
+    
+    marker.addListener('click', () => {
+      map.panTo(marker.getPosition());
+      map.setZoom(11);
+      map.setCenter(marker.getPosition());
     });
   }
 }
