@@ -150,17 +150,6 @@ function initMap() {
     map.setCenter(marker.getPosition());
     });
   }
-  /* Saved for reference later
-  map.addListener('center_changed', function() {
-    window.setTimeout(function() {
-    map.panTo(marker.getPosition());
-    }, 3000);
-  });
-  marker.addListener('click', function() {
-    map.setZoom(11);
-    map.setCenter(marker.getPosition());
-  });
-  */
 }
 
 
