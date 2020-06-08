@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <title>Kristen Mason</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvyTn0E2bWM0iDtAvgSyFBL0oX3UhfstA"></script>
     <script src="script.js"></script>
 </head>
-<body>
+<body onload="initMap();">
     <div id="content">
         <h1>Kristen's Portfolio</h1>
         <div class="tab">
@@ -132,6 +133,7 @@
         <div id="travel-blog" class="tabcontent">
             <h2> Travel Blog </h2>
             <h3>Here are some of my favorite places I've visited in the past few years! </h3>
+            <div id="map"></div>
             <div id="australia">
                 <h4>Australia</h4>
                 <p>This past winter, my family went to Australia for New Years. We visited Sydney, Adelaide, Melbourne,
