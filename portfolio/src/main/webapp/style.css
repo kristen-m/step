@@ -88,6 +88,13 @@ h1 {
   cursor: pointer;
 }
 
+#map {
+  display: block;
+  border: thin solid black;
+  height: 500px;
+  width: 500px;
+}
+
 .col {
   float: left;
   width: 33.33%;
