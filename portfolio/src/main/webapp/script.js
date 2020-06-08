@@ -117,25 +117,7 @@ function viewReplies() {
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 9,
+    zoom: 1,
     center: {lat: 59.325, lng: 18.070}
-  });
-
-  apostlesMarker = new google.maps.Marker({
-    map: map,
-    draggable: false,
-    animation: google.maps.Animation.DROP,
-    position: {lat: -38.6621, lng: 143.1051}
-  });
-
-  map.addListener('center_changed', function() {
-    window.setTimeout(function() {
-    map.panTo(apostlesMarker.getPosition());
-    }, 3000);
-  });
-
-  apostlesMarker.addListener('click', function() {
-    map.setZoom();
-    map.setCenter(apostlesMarker.getPosition());
   });
 }
