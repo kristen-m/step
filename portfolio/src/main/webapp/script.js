@@ -143,6 +143,11 @@ function initMap() {
     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
     map: map
     });
+
+    marker.addListener('click', function() {
+    map.setZoom(11);
+    map.setCenter(marker.getPosition());
+    });
   }
   /* Saved for reference later
   map.addListener('center_changed', function() {
