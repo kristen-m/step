@@ -144,11 +144,20 @@ function initMap() {
     animation: google.maps.Animation.DROP,
     map: map
     });
-    
     marker.addListener('click', () => {
       map.setZoom(11);
       map.setCenter(marker.getPosition());
     });
+    let infowindow = new google.maps.InfoWindow({
+    content: LOCATIONS[i][0]
+    });
+    marker.addListener('mouseover', () => {
+      infowindow.open(map, marker);
+    });
+    marker.addListener('mouseout', () => {
+      infowindow.close();
+    });
+    
   }
 
 }
