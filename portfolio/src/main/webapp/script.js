@@ -140,16 +140,16 @@ function initMap() {
   });
   for (let i = 0; i < LOCATIONS.length; i++) {  
     let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(LOCATIONS[i][1], LOCATIONS[i][2]),
-    animation: google.maps.Animation.DROP,
-    map: map
+      position: new google.maps.LatLng(LOCATIONS[i][1], LOCATIONS[i][2]),
+      animation: google.maps.Animation.DROP,
+      map: map
     });
     marker.addListener('click', () => {
       map.setZoom(11);
       map.setCenter(marker.getPosition());
     });
     let infowindow = new google.maps.InfoWindow({
-    content: LOCATIONS[i][0]
+      content: LOCATIONS[i][0]
     });
     marker.addListener('mouseover', () => {
       infowindow.open(map, marker);
