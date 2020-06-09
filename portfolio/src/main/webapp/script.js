@@ -118,6 +118,7 @@ function makeLocation(locName, latitude, longitude) {
   let loc = {name: locName,lat: latitude, lng: longitude};
   return loc;
 }
+
 const LOCATIONS = [makeLocation('The Twelve Apostles', -38.6621, 143.1051),
   makeLocation('Sydney Opera House', -33.8568, 151.2153),
   makeLocation('Rocky Mountain National Park', 40.3428, -105.6836),
@@ -132,16 +133,17 @@ const LOCATIONS = [makeLocation('The Twelve Apostles', -38.6621, 143.1051),
   makeLocation('Joshua Tree National Park',33.8734, -115.9010 ),
   makeLocation('Petrified Forest National Park', 34.9100, -109.8068),
   makeLocation('Scripps College', 34.1038, -117.7110),
-  makeLocation('Antelope Valley, California', 34.7514, -118.2523)];
+  makeLocation('Antelope Valley, California', 34.7514, -118.2523),
+  makeLocation('Hamilton Island', -20.3519, 148.9573)];
 
 const CENTER_COORDS = new google.maps.LatLng(0, 0);
+
 function initMap() {
   let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 1,
     center: CENTER_COORDS
   });
   LOCATIONS.forEach(location => {
-  //for (let i = 0; i < LOCATIONS.length; i++)  
     let marker = new google.maps.Marker({
       position: new google.maps.LatLng(location.lat, location.lng),
       animation: google.maps.Animation.DROP,
