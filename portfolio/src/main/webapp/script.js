@@ -114,6 +114,14 @@ function viewReplies() {
   });
 }
 
+function translateText() {
+  console.log("Hi there");
+  const destinations = document.getElementsByClassName('destination');
+  const languageCode = document.getElementById('language').value;
+  console.log(destinations);
+  console.log(languageCode);
+}
+
 function makeLocation(locName, latitude, longitude) {
   let loc = {name: locName,lat: latitude, lng: longitude};
   return loc;
