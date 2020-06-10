@@ -30,6 +30,9 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.sps.data.Comment;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -40,12 +43,19 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     int limit = getCommentLimit(request);
+    String languageCode = getLanguage(request);
     PreparedQuery results = datastore.prepare(query);
     List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
     for (Entity entity : commentList) {
       long id = entity.getKey().getId();
       String commentText = (String) entity.getProperty("comment");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
+
+      // Do the translation.
+      Translate translate = TranslateOptions.getDefaultInstance().getService();
+      //Translation translationContent = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
+      //String translatedText = translation.getTranslatedText();
+
       Comment comment = new Comment(commentText, timestamp, null, id);
       comments.add(comment);
     }
@@ -92,6 +102,14 @@ public class DataServlet extends HttpServlet {
       return DEFUALT_COMMENT_LIMIT;
     }
     return commentLimit;
+  }
+
+  private String getLanguage(HttpServletRequest request) {
+    String lang = request.getParameter("language");
+    if(lang == null) {
+      return "en";
+    }
+    return lang;
   }
 
 }
