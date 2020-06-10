@@ -39,6 +39,7 @@ public class DataServlet extends HttpServlet {
   static final int DEFUALT_COMMENT_LIMIT = 3;
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Translate translate = TranslateOptions.getDefaultInstance().getService();
     ArrayList<Comment> comments = new ArrayList<Comment>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -52,13 +53,13 @@ public class DataServlet extends HttpServlet {
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
 
       // Do the translation.
-      Translate translate = TranslateOptions.getDefaultInstance().getService();
-      //Translation translationContent = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
-      //String translatedText = translation.getTranslatedText();
+      Translation translation = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
+      String translatedText = translation.getTranslatedText();
 
-      Comment comment = new Comment(commentText, timestamp, null, id);
+      Comment comment = new Comment(translatedText, timestamp, null, id);
       comments.add(comment);
     }
+    //comments.add(languageCode);
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
