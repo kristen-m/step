@@ -114,13 +114,32 @@ function viewReplies() {
   });
 }
 
+
+
 function translateText() {
-  console.log("Hi there");
+  const innerTexts = [];
   const destinations = document.getElementsByClassName('destination');
   const languageCode = document.getElementById('language').value;
   console.log(destinations);
   console.log(languageCode);
+  for(let i = 0; i < destinations.length; i++) {
+    console.log(destinations[i]);
+    textToTranslate = destinations[i].innerText;
+    innerTexts.push(textToTranslate);
+
+    const params = new URLSearchParams();
+    params.append('text', textToTranslate);
+    params.append('languageCode', languageCode);
+
+    fetch('/translate?language='+languageCode).then((response) => response.json()).then((translatedMessage) => {
+      console.log("inside fetch");
+      console.log(translatedMessage);
+      destinations[i].innerText = translatedMessage;
+    });
+  }
+  console.log(innerTexts);
 }
+
 
 function makeLocation(locName, latitude, longitude) {
   let loc = {name: locName,lat: latitude, lng: longitude};

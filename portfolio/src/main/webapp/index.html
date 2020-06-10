@@ -37,6 +37,14 @@
               <input type="submit" onclick="getComments()"/>
             <div id="comment-content">
               <h4>Read some old comments:</h4>
+              <select id="language" name="language">
+                <option value="es">English</option>
+                <option value="zh">Chinese</option>
+                <option value="es">Spanish</option>
+                <option value="hi">Hindi</option>
+                <option value="ar">Arabic</option>
+              </select>
+            <button onclick="setLanguage()"> Translate</button>
               <div id="comment-container"></div>
             </div>
             <button class="button" onclick="viewReplies()">View Replies</button>
@@ -131,14 +139,6 @@
             </ul>
         </div>
         <div id="travel-blog" class="tabcontent">
-            <select id="language">
-              <option value="es">English</option>
-              <option value="zh">Chinese</option>
-              <option value="es">Spanish</option>
-              <option value="hi">Hindi</option>
-              <option value="ar">Arabic</option>
-            </select>
-            <button onclick="translateText()"> Translate</button>
             <h2> Travel Blog </h2>
             <h3>Here are some of my favorite places I've visited in the past few years! </h3>
             <div id="map"></div>
