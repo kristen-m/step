@@ -51,15 +51,11 @@ public class DataServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String commentText = (String) entity.getProperty("comment");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
-
-      // Do the translation.
       Translation translation = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
       String translatedText = translation.getTranslatedText();
-
       Comment comment = new Comment(translatedText, timestamp, null, id);
       comments.add(comment);
     }
-    //comments.add(languageCode);
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
