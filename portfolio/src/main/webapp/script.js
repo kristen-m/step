@@ -52,8 +52,17 @@ function makeUglySite() {
   toggleVisibility('hide-div');
 }
 
-function getComments() {
-  const url = '/data?limit=' + getLimit();
+function setLanguage() {
+  let input = document.getElementById("language");
+  let languageCode = input.options[input.selectedIndex].value;
+  getComments("&language=" + languageCode);
+}
+
+function getComments(queryParam) {
+  if(queryParam==null) {
+    queryParam = '';
+  }
+  const url = '/data?limit=' + getLimit()+queryParam;
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
@@ -113,33 +122,6 @@ function viewReplies() {
     }
   });
 }
-
-
-
-function translateText() {
-  const innerTexts = [];
-  const destinations = document.getElementsByClassName('destination');
-  const languageCode = document.getElementById('language').value;
-  console.log(destinations);
-  console.log(languageCode);
-  for(let i = 0; i < destinations.length; i++) {
-    console.log(destinations[i]);
-    textToTranslate = destinations[i].innerText;
-    innerTexts.push(textToTranslate);
-
-    const params = new URLSearchParams();
-    params.append('text', textToTranslate);
-    params.append('languageCode', languageCode);
-
-    fetch('/translate?language='+languageCode).then((response) => response.json()).then((translatedMessage) => {
-      console.log("inside fetch");
-      console.log(translatedMessage);
-      destinations[i].innerText = translatedMessage;
-    });
-  }
-  console.log(innerTexts);
-}
-
 
 function makeLocation(locName, latitude, longitude) {
   let loc = {name: locName,lat: latitude, lng: longitude};
