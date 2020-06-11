@@ -37,6 +37,7 @@ import com.google.cloud.translate.Translation;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   static final int DEFUALT_COMMENT_LIMIT = 3;
+  static final String DEFAULT_LANG = "en";
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<Comment> comments = new ArrayList<Comment>();  
@@ -104,7 +105,7 @@ public class DataServlet extends HttpServlet {
   private String getLanguage(HttpServletRequest request) {
     String lang = request.getParameter("language");
     if(lang == null) {
-      return "en";
+      return DEFAULT_LANG;
     }
     return lang;
   }
