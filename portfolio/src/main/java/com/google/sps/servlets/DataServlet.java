@@ -30,23 +30,31 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.List;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.sps.data.Comment;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   static final int DEFUALT_COMMENT_LIMIT = 3;
+  static final String DEFAULT_LANG = "en";
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<Comment> comments = new ArrayList<Comment>();  
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     int limit = getCommentLimit(request);
+    String languageCode = getLanguage(request);
     PreparedQuery results = datastore.prepare(query);
     List<Entity> commentList = results.asList(FetchOptions.Builder.withLimit(limit)); 
     for (Entity entity : commentList) {
       long id = entity.getKey().getId();
       String commentText = (String) entity.getProperty("comment");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
-      Comment comment = new Comment(commentText, timestamp, null, id);
+      Translate translate = TranslateOptions.getDefaultInstance().getService();
+      Translation translation = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
+      String translatedText = translation.getTranslatedText();
+      Comment comment = new Comment(translatedText, timestamp, null, id);
       comments.add(comment);
     }
     Gson gson = new Gson();
@@ -92,6 +100,14 @@ public class DataServlet extends HttpServlet {
       return DEFUALT_COMMENT_LIMIT;
     }
     return commentLimit;
+  }
+
+  private String getLanguage(HttpServletRequest request) {
+    String lang = request.getParameter("language");
+    if(lang == null) {
+      return DEFAULT_LANG;
+    }
+    return lang;
   }
 
 }
