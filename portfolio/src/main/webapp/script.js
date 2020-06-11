@@ -55,14 +55,11 @@ function makeUglySite() {
 function setLanguage() {
   let input = document.getElementById("language");
   let languageCode = input.options[input.selectedIndex].value;
-  getComments("&language=" + languageCode);
+  getComments("&language="+languageCode);
 }
 
-function getComments(queryParam) {
-  if(queryParam==null) {
-    queryParam = '';
-  }
-  const url = '/data?limit=' + getLimit()+queryParam;
+function getComments(queryParam = '') {
+  const url = '/data?limit='+getLimit()+queryParam;
   fetch(url).then(response => response.json()).then((comments) => {
     const commentListElement = document.getElementById('comment-container');
     commentListElement.innerText = '';
