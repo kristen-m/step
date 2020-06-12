@@ -46,7 +46,7 @@ function makeUglySite() {
   for (let x = 0; x < buttons.length; x++) {
     buttons[x].style.fontFamily = 'Comic Sans MS';
   }
-  toggleVisibility('graphic')
+  toggleVisibility('graphic');
   toggleVisibility('hide-div');
 }
 
