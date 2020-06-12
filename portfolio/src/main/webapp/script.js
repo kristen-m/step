@@ -28,8 +28,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.classList.add('active');
 }
 
-
-
 function toggleVisibility(id) {
   const x = document.getElementById(id);
   if (x.style.display === 'none') {
@@ -182,7 +180,6 @@ function initMap() {
       infowindow.close();
     });  
   });
-
 }
 
 

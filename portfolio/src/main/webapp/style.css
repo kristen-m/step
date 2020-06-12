@@ -4,9 +4,9 @@ html {
 }
 
 body {
-    font-family: "Georgia";
-    background-color: white;
-    color: black;
+  font-family: "Georgia";
+  background-color: white;
+  color: black;
 }
 
 img {
@@ -16,11 +16,11 @@ img {
 }
 
 button {
-    font-family: "Georgia";
+  font-family: "Georgia";
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 #content {
@@ -57,7 +57,6 @@ h1 {
   -o-filter: brightness(70%);
   -ms-filter: brightness(70%);
   filter: brightness(70%);
-    
 }
 
 #github {
@@ -107,7 +106,6 @@ h1 {
   border-bottom: 10px;
 }
 
-/*The styling for all of the tab related items */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
