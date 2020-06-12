@@ -54,11 +54,13 @@ public class DataServlet extends HttpServlet {
       Translate translate = TranslateOptions.getDefaultInstance().getService();
       Translation translation = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
       String translatedText = translation.getTranslatedText();
+      translatedText = translatedText.replace("&#39;", "'");
       Comment comment = new Comment(translatedText, timestamp, id);
       comments.add(comment);
     }
     Gson gson = new Gson();
-    response.setContentType("application/json;");
+    response.setContentType("application/json; charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
     response.getWriter().println(gson.toJson(comments));
   }
 
