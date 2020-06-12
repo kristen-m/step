@@ -54,7 +54,7 @@ public class DataServlet extends HttpServlet {
       Translate translate = TranslateOptions.getDefaultInstance().getService();
       Translation translation = translate.translate(commentText, Translate.TranslateOption.targetLanguage(languageCode));
       String translatedText = translation.getTranslatedText();
-      Comment comment = new Comment(translatedText, timestamp, null, id);
+      Comment comment = new Comment(translatedText, timestamp, id);
       comments.add(comment);
     }
     Gson gson = new Gson();
