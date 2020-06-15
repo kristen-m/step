@@ -28,8 +28,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.classList.add('active');
 }
 
-
-
 function toggleVisibility(id) {
   const x = document.getElementById(id);
   if (x.style.display === 'none') {
@@ -48,7 +46,7 @@ function makeUglySite() {
   for (let x = 0; x < buttons.length; x++) {
     buttons[x].style.fontFamily = 'Comic Sans MS';
   }
-  toggleVisibility('graphic')
+  toggleVisibility('graphic');
   toggleVisibility('hide-div');
 }
 
@@ -182,7 +180,6 @@ function initMap() {
       infowindow.close();
     });  
   });
-
 }
 
 

@@ -47,7 +47,7 @@ public class ReplyServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String replyText = (String) entity.getProperty("reply");
       String timestamp = String.valueOf(entity.getProperty("timestamp"));
-      Comment reply = new Comment(replyText, timestamp, null, id);
+      Comment reply = new Comment(replyText, timestamp, id);
 
       replies.add(reply);
     }
