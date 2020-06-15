@@ -56,6 +56,7 @@ public final class FindMeetingQueryTest {
     query = new FindMeetingQuery();
   }
 
+  //Pass
   @Test
   public void optionsForNoAttendees() {
     MeetingRequest request = new MeetingRequest(NO_ATTENDEES, DURATION_1_HOUR);
@@ -66,6 +67,7 @@ public final class FindMeetingQueryTest {
     Assert.assertEquals(expected, actual);
   }
 
+  //Pass
   @Test
   public void noOptionsForTooLongOfARequest() {
     // The duration should be longer than a day. This means there should be no options.
@@ -237,6 +239,7 @@ public final class FindMeetingQueryTest {
     Assert.assertEquals(expected, actual);
   }
 
+  //Passes
   @Test
   public void noConflicts() {
     MeetingRequest request =
