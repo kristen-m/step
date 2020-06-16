@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public final class FindMeetingQuery {
   private static int DAY_LENGTH = 24*60;
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
