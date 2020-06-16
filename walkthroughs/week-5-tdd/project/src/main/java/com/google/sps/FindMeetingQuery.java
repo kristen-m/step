@@ -31,16 +31,14 @@ public final class FindMeetingQuery {
     Set<String> attendees =  new HashSet<String>();
     int meetingDur = (int)request.getDuration();
     attendees.addAll(request.getAttendees());
-    //If the meeting duration is greater than 24 hours return no options
     if (meetingDur > DAY_LENGTH){
       return possibleTimes;
     }
-    //if there are no scheduled events or attendees, the entire day is free
     if (events.isEmpty() || attendees.isEmpty()){
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
-    //Gets a List of ranges of all the times that they are busy
+    //A time is considered to be busy when an attendee is in an event & meeting request
     ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
@@ -50,9 +48,7 @@ public final class FindMeetingQuery {
         busyTimes.add(event.getWhen());
       }
     }
-
-
-  //combines overlapping blocked times into a consolidated arraylist
+  //combines overlapping busy times into an arraylist
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     TimeRange[] blockedTimes = ((List<TimeRange>) busyTimes).toArray(new TimeRange[busyTimes.size()]); 
     System.out.println(blockedTimes.toString());
@@ -68,8 +64,8 @@ public final class FindMeetingQuery {
         busyWithOverlap.set(index, TimeRange.fromStartEnd(meetingStart, meetingEnd, true));
       }
       else {
-        index ++;
         busyWithOverlap.add(blockedTimes[i]);
+        index ++;
       }
     }
     return findFreeTimes(busyWithOverlap, request.getDuration());
