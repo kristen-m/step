@@ -50,7 +50,6 @@ public final class FindMeetingQuery {
   /*Combines overlapping busy times into an ArrayList*/
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     TimeRange[] blockedTimes = ((List<TimeRange>) busyTimes).toArray(new TimeRange[busyTimes.size()]); 
-    System.out.println(blockedTimes.toString());
     ArrayList<TimeRange> busyWithOverlap = new ArrayList<TimeRange>();
     if(blockedTimes.length > 0) {
       busyWithOverlap.add(blockedTimes[0]);
