@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +37,7 @@ public final class FindMeetingQuery {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
-    //A time is considered to be busy when an attendee is in an event & meeting request
+    /*A time is considered to be busy when an attendee is in an event & the meeting request*/
     ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
@@ -48,7 +47,7 @@ public final class FindMeetingQuery {
         busyTimes.add(event.getWhen());
       }
     }
-  //combines overlapping busy times into an arraylist
+  /*Combines overlapping busy times into an ArrayList*/
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     TimeRange[] blockedTimes = ((List<TimeRange>) busyTimes).toArray(new TimeRange[busyTimes.size()]); 
     System.out.println(blockedTimes.toString());
@@ -68,9 +67,17 @@ public final class FindMeetingQuery {
         index ++;
       }
     }
-    return findFreeTimes(busyWithOverlap, request.getDuration());
+    possibleTimes = findFreeTimes(busyWithOverlap, request.getDuration());
+    return possibleTimes;
   }
 
+  /**
+  * Returns an ArrayList of possible meeting times that are available for all attendees
+  *
+  * @param  busyTimes an ArrayList that contains all of the unavailable meeting times
+  * @param  duration the length of the meeting being planned
+  * @return    the ArrayList of possible meeting times
+  */
   private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long duration) {
     ArrayList<TimeRange> freeTimes = new ArrayList<>();
     int start = TimeRange.START_OF_DAY;
