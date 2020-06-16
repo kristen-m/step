@@ -44,7 +44,8 @@ public final class FindMeetingQuery {
       return possibleTimes;
     }
 
-    List<TimeRange> busyTimes = new ArrayList<TimeRange>();
+    //Gets a List of ranges of all the times that are busy
+    ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
       Set<String> overlap = new HashSet<>(eventAttendees);
@@ -53,21 +54,21 @@ public final class FindMeetingQuery {
         busyTimes.add(event.getWhen());
       }
     }
+    //Sorts the busy times by the time they start
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     System.out.println(busyTimes);  
-    TimeRange[] unavailable = ((List<TimeRange>) busyTimes).toArray(new TimeRange[busyTimes.size()]); 
-
+    /*
     int index = 0;
-    for (int i=0; i < unavailable.length; i++) {
+    for (int i=0; i < busyTimes.length; i++) {
       int startTime = 0;
       int endTime = 0;
       if(i == 0) {
         startTime = 0;
-        endTime = unavailable[i].start();
+        endTime = busyTimes[i].start();
       }
       else{
-        startTime = unavailable[index].start();
-        endTime = unavailable[i].end();
+        startTime = busyTimes[index].start();
+        endTime = busyTimes[i].end();
       }
       TimeRange freeTime = TimeRange.fromStartEnd(startTime,endTime,false);
       possibleTimes.add(freeTime);
@@ -75,6 +76,36 @@ public final class FindMeetingQuery {
     }
     System.out.println(possibleTimes);
     return possibleTimes;
+    */
+    System.out.println(findFreeTimes(busyTimes, request.getDuration()));
+    return findFreeTimes(busyTimes, request.getDuration());
+  }
+
+  private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long duration) {
+    //Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
+    ArrayList<TimeRange> freeTimes = new ArrayList<>();
+    int start = TimeRange.START_OF_DAY;
+    int end = TimeRange.END_OF_DAY;
+    for (int i = 0; i < busyTimes.size(); i++) {
+      TimeRange curr = busyTimes.get(i);
+
+      int thisStart = curr.start();
+      int thisEnd = curr.end();
+      /*
+       * create a free slot from the beginning of the free period to 'thisStart',
+       * the beginning of the next busy one
+       */
+      TimeRange newFree = TimeRange.fromStartEnd(start, thisStart, false);
+      if (newFree.duration() >= duration) {
+        freeTimes.add(newFree);
+      }
+      start = thisEnd;
+    }
+    // Create a free slot from the end of the last meeting to the end of the day if possible
+    TimeRange newFree = TimeRange.fromStartEnd(start, end, true);
+    if (newFree.duration() >= duration) {
+      freeTimes.add(newFree);
+    }
+    return freeTimes;
   }
 }
-
