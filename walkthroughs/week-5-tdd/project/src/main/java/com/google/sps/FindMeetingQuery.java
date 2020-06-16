@@ -44,8 +44,8 @@ public final class FindMeetingQuery {
   * Returns an ArrayList of meeting times that are unavailable due to schedule
   * conflicts and overlapping meeting times within the given group of attendees. 
   *
-  * @param  events the Collection of Event objects passed into the query function
-  * @param  requestAttendees the Set of attendees from the MeetingRequest parameter in query
+  * @param  events the Collection of Event objects
+  * @param  requestAttendees the Set of attendees
   * @return    the ArrayList of all meeting times that do not work with the attendees schedules
   */
   private ArrayList<TimeRange> getBusyTimes(Collection<Event> events, Set<String> requestAttendees) {
@@ -63,16 +63,16 @@ public final class FindMeetingQuery {
     if(busyTimes.size() > 0) {
       busyWithOverlap.add(busyTimes.get(0));
     }
-    int index = 0;
-    for (int i=0; i < busyTimes.size(); i++){
-      if (busyTimes.get(i).overlaps(busyWithOverlap.get(index))){
-        int meetingStart = Math.min(busyWithOverlap.get(index).start(), busyTimes.get(i).start());
-        int meetingEnd = Math.max(busyWithOverlap.get(index).end(), busyTimes.get(i).end()) - 1;
-        busyWithOverlap.set(index, TimeRange.fromStartEnd(meetingStart, meetingEnd, true));
+    int overlapIndex = 0;
+    for (int busyIndex=0; busyIndex < busyTimes.size(); busyIndex++){
+      if (busyTimes.get(busyIndex).overlaps(busyWithOverlap.get(overlapIndex))){
+        int meetingStart = Math.min(busyWithOverlap.get(overlapIndex).start(), busyTimes.get(busyIndex).start());
+        int meetingEnd = Math.max(busyWithOverlap.get(overlapIndex).end(), busyTimes.get(busyIndex).end()) - 1;
+        busyWithOverlap.set(overlapIndex, TimeRange.fromStartEnd(meetingStart, meetingEnd, true));
       }
       else {
-        busyWithOverlap.add(busyTimes.get(i));
-        index++;
+        busyWithOverlap.add(busyTimes.get(busyIndex));
+        overlapIndex++;
       }
     }
     return busyWithOverlap;
