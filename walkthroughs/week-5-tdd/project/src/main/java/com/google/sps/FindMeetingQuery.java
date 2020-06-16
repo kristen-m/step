@@ -26,7 +26,7 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     List<TimeRange> possibleTimes = new ArrayList<TimeRange>();
     Set<String> attendees =  new HashSet<String>();
-    int meetingDur = (int)request.getDuration();
+    int meetingDur = (int) request.getDuration();
     attendees.addAll(request.getAttendees());
     if (meetingDur > TimeRange.WHOLE_DAY.duration()){
       return possibleTimes;
@@ -40,18 +40,24 @@ public final class FindMeetingQuery {
     return possibleTimes;
   }
 
-  private ArrayList<TimeRange> getBusyTimes(Collection<Event> events, Set<String> attendees) {
-    /*A time is considered to be busy when an attendee is in an event & the meeting request*/
+/**
+  * Returns an ArrayList of meeting times that are unavailable due to schedule
+  * conflicts and overlapping meeting times within the given group of attendees. 
+  *
+  * @param  events the Collection of Event objects passed into the query function
+  * @param  requestAttendees the Set of attendees from the MeetingRequest parameter in query
+  * @return    the ArrayList of all meeting times that do not work with the attendees schedules
+  */
+  private ArrayList<TimeRange> getBusyTimes(Collection<Event> events, Set<String> requestAttendees) {
     ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
       Set<String> overlap = new HashSet<>(eventAttendees);
-      overlap.retainAll(attendees);
+      overlap.retainAll(requestAttendees);
       if (!overlap.isEmpty()){
         busyTimes.add(event.getWhen());
       }
     }
-  /*Combines overlapping busy times into an ArrayList*/
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     ArrayList<TimeRange> busyWithOverlap = new ArrayList<TimeRange>();
     if(busyTimes.size() > 0) {
@@ -73,7 +79,7 @@ public final class FindMeetingQuery {
   }
 
   /**
-  * Returns an ArrayList of possible meeting times that are available for all attendees
+  * Returns an ArrayList of possible meeting times that are available for all attendees.
   *
   * @param  busyTimes an ArrayList that contains all of the unavailable meeting times
   * @param  duration the length of the meeting being planned
