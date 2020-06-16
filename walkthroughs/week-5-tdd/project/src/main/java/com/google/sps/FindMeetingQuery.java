@@ -40,7 +40,7 @@ public final class FindMeetingQuery {
       possibleTimes.add(TimeRange.WHOLE_DAY);
       return possibleTimes;
     }
-    //Gets a List of ranges of all the times that are busy
+    //Gets a List of ranges of all the times that they are busy
     ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
@@ -50,11 +50,29 @@ public final class FindMeetingQuery {
         busyTimes.add(event.getWhen());
       }
     }
-    //Sorts the busy times by the time they start
+
+
+  //combines overlapping blocked times into a consolidated arraylist
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
-    System.out.println(busyTimes);  
-    System.out.println(findFreeTimes(busyTimes, request.getDuration()));
-    return findFreeTimes(busyTimes, request.getDuration());
+    TimeRange[] blockedTimes = ((List<TimeRange>) busyTimes).toArray(new TimeRange[busyTimes.size()]); 
+    System.out.println(blockedTimes.toString());
+    ArrayList<TimeRange> busyWithOverlap = new ArrayList<TimeRange>();
+    if(blockedTimes.length > 0) {
+      busyWithOverlap.add(blockedTimes[0]);
+    }
+    int index = 0;
+    for (int i=0; i < blockedTimes.length; i++){
+      if (blockedTimes[i].overlaps(busyWithOverlap.get(index))){
+        int meetingStart = Math.min(busyWithOverlap.get(index).start(), blockedTimes[i].start());
+        int meetingEnd = Math.max(busyWithOverlap.get(index).end(), blockedTimes[i].end()) - 1;
+        busyWithOverlap.set(index, TimeRange.fromStartEnd(meetingStart, meetingEnd, true));
+      }
+      else {
+        index ++;
+        busyWithOverlap.add(blockedTimes[i]);
+      }
+    }
+    return findFreeTimes(busyWithOverlap, request.getDuration());
   }
 
   private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long duration) {
