@@ -124,9 +124,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void everyAttendeeIsConsideredWithOptionalBusy() {
-    // Have each person have different events. We should see two options because each person has
-    // split the restricted times.
-    //          |-------------C--------------|
+    // Have each person have different events, and the optional attendee should be busy and unable to attend. 
+    // We should see three options because each person has split the restricted times.
+    //          |-------------C----------------|
     // Events  :       |--A--|     |--B--|
     // Day     : |-----------------------------|
     // Options : |--1--|     |--2--|     |--3--|
@@ -156,9 +156,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void everyAttendeeIsConsideredWithOptionalAvail() {
-    // Have each person have different events. We should see two options because each person has
-    // split the restricted times.
-    //                       |--C---|
+    // Have each person have different events, and have the optional attendee be free to attend this meeting. 
+    // We should see two options because each person has split the restricted times.
+    //                       |--C--|
     // Events  :       |--A--|     |--B--|
     // Day     : |-----------------------------|
     // Options : |--1--|                  |--3--|
@@ -286,8 +286,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void justEnoughRoomWithOptional() {
-    // Have one person, but make it so that there is just enough room at one point in the day to
-    // have the meeting.
+    // Have one mandatory person & one optional, but make it so that there is just enough room 
+    // at one point in the day to have the meeting.
     //
     // Events  : |--A--|-C-| |----A----|
     // Day     : |---------------------|
