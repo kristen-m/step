@@ -105,7 +105,7 @@ public final class FindMeetingQuery {
   * @return    the ArrayList of all chunks of meeting times that are unavailable.
   */
   private ArrayList<TimeRange> getOverlap(ArrayList<TimeRange> busyTimes) {
-    Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
+    Collections.sort(busyTimes, ORDER_BY_START);
     ArrayList<TimeRange> busyWithOverlap = new ArrayList<TimeRange>();
     if (busyTimes.size() > 0) {
       busyWithOverlap.add(busyTimes.get(0));
@@ -115,7 +115,7 @@ public final class FindMeetingQuery {
       if (busyTimes.get(busyIndex).overlaps(busyWithOverlap.get(overlapIndex))) {
         int meetingStart = Math.min(busyWithOverlap.get(overlapIndex).start(), busyTimes.get(busyIndex).start());
         int meetingEnd = Math.max(busyWithOverlap.get(overlapIndex).end(), busyTimes.get(busyIndex).end()) - 1;
-        busyWithOverlap.set(overlapIndex, TimeRange.fromStartEnd(meetingStart, meetingEnd, true));
+        busyWithOverlap.set(overlapIndex, fromStartEnd(meetingStart, meetingEnd, true));
       }
       else {
         busyWithOverlap.add(busyTimes.get(busyIndex));
@@ -135,19 +135,19 @@ public final class FindMeetingQuery {
   */
   private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long meetingDuration) {
     ArrayList<TimeRange> freeTimes = new ArrayList<>();
-    int start = TimeRange.START_OF_DAY;
-    int end = TimeRange.END_OF_DAY;
+    int start = START_OF_DAY;
+    int end = END_OF_DAY;
     for (int i = 0; i < busyTimes.size(); i++) {
       TimeRange curr = busyTimes.get(i);
       int thisStart = curr.start();
       int thisEnd = curr.end();
-      TimeRange newFree = TimeRange.fromStartEnd(start, thisStart, false);
+      TimeRange newFree = fromStartEnd(start, thisStart, false);
       if (newFree.duration() >= meetingDuration) {
         freeTimes.add(newFree);
       }
       start = thisEnd;
     }
-    TimeRange newFree = TimeRange.fromStartEnd(start, end, true);
+    TimeRange newFree = fromStartEnd(start, end, true);
     if (newFree.duration() >= meetingDuration) {
       freeTimes.add(newFree);
     }
