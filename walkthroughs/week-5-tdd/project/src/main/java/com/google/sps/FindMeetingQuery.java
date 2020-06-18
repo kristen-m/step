@@ -51,46 +51,37 @@ public final class FindMeetingQuery {
   * @param  duration the length of the requested meeting
   * @return    the ArrayList of all meeting times that work with the attendees schedules
   */
-  private ArrayList<TimeRange> getPossibleTimes(Collection<Event> events, Set<String> requestAttendees,
+  private ArrayList<TimeRange> getPossibleTimes(Collection<Event> events, Set<String> mandatoryAttendees,
           Set<String> optAttendees, long duration) {
-    ArrayList<TimeRange> busyTimes = new ArrayList<TimeRange>();
+    ArrayList<TimeRange> mandatoryBusyTimes = new ArrayList<TimeRange>();
     ArrayList<TimeRange> optionalBusyTimes = new ArrayList<TimeRange>();
-    /*for(Event event : events) {
-      Set<String> eventAttendees = event.getAttendees();
-      Set<String> mandatoryAttendeeOverlap = new HashSet<>(eventAttendees);
-      Set<String> optionalAttendeeOverlap = new HashSet<>(eventAttendees);
-      mandatoryAttendeeOverlap.retainAll(requestAttendees);
-      optionalAttendeeOverlap.retainAll(optAttendees);
-      if (!mandatoryAttendeeOverlap.isEmpty()) {
-        busyTimes.add(event.getWhen());
-      }
-      if (!optionalAttendeeOverlap.isEmpty()) {
-        optionalBusyTimes.add(event.getWhen());
-      }
-    }
-    */
-    busyTimes = getBusyTimes(events, requestAttendees);
+    mandatoryBusyTimes = getBusyTimes(events, mandatoryAttendees);
     optionalBusyTimes = getBusyTimes(events, optAttendees);
 
     
-    if (busyTimes.isEmpty() && !optionalBusyTimes.isEmpty()){
+    if (mandatoryBusyTimes.isEmpty() && !optionalBusyTimes.isEmpty()){
       return findFreeTimes(getOverlap(optionalBusyTimes), duration);
     }
-    if (!busyTimes.isEmpty() && optionalBusyTimes.isEmpty()){
+    if (!mandatoryBusyTimes.isEmpty() && optionalBusyTimes.isEmpty()){
       return findFreeTimes(getOverlap(busyTimes), duration);
     }
     ArrayList<TimeRange> allBusyTimes = new ArrayList<TimeRange>();
-    allBusyTimes.addAll(busyTimes);
+    allBusyTimes.addAll(mandatoryBusyTimes);
     allBusyTimes.addAll(optionalBusyTimes);
     ArrayList<TimeRange> overlappingBusyTimes = getOverlap(allBusyTimes);
     ArrayList<TimeRange> bothFree = findFreeTimes(overlappingBusyTimes, duration);
     if (bothFree.isEmpty()){
-        return findFreeTimes(getOverlap(busyTimes), duration);
+        return findFreeTimes(getOverlap(mandatoryBusyTimes), duration);
     }
     return bothFree;
   }   
   /*
-
+  * Returns an ArrayList of TimeRanges of all of the times throughout the day
+  * that the given set of meeting attendees are busy and cannot be scheduled.
+  *
+  * @param  events the Collection of Event objects
+  * @param  attendees the Set of meeting attendees
+  * @return   The ArrayList of TimeRanges where the given attendees are busy that day
   */
 
   private ArrayList<TimeRange> getBusyTimes(Collection<Event> events, Set<String> attendees) {
