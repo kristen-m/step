@@ -41,9 +41,9 @@ public final class FindMeetingQuery {
     
   }
 
-/**
-  * Returns an ArrayList of possible meeting times that take into account mandatory
-  * attendees & optional attendees schedules.
+  /**
+  * Returns an ArrayList of all possible meeting times that are free for the given list of attendees,
+  * and includes optional attendees if possible. 
   *
   * @param  events the Collection of Event objects
   * @param  requestAttendees the Set of mandatory attendees
@@ -57,23 +57,34 @@ public final class FindMeetingQuery {
     ArrayList<TimeRange> optionalBusyTimes = new ArrayList<TimeRange>();
     mandatoryBusyTimes = getBusyTimes(events, mandatoryAttendees);
     optionalBusyTimes = getBusyTimes(events, optAttendees);
-    return accountForOptionalAttendees(mandatoryBusyTimes, optionalBusyTimes, duration);
+    return timesWithAccountForOptAttendees(mandatoryBusyTimes, optionalBusyTimes, duration);
   }   
 
-  private ArrayList<TimeRange> accountForOptionalAttendees(Set<String> mandatory, Set<String> optional, int duration) {
-    //if (mandatory.isEmpty() && !optional.isEmpty()) {
-      //return findFreeTimes(getOverlap(optional), duration);
-    //}
-    //if (!mandatory.isEmpty() && optional.isEmpty()) {
-      //return findFreeTimes(getOverlap(mandatory), duration);
-    //}
+  /**
+  * Returns an ArrayList of possible meeting times that prioritize the schedules of 
+  * mandatory meeting attendees and takes into account the schedule of optional attendees 
+  * if possible.
+  *
+  * @param  mandatory the ArrayList of timeranges where mandatory attendees are busy
+  * @param  optional the ArrayList of timeranges where optional attendees are busy
+  * @param  duration the length of the requested meeting
+  * @return    the ArrayList of all open meeting times for mandatory attendees & if possible, optional attendees
+  */
+  private ArrayList<TimeRange> timesWithAccountForOptAttendees(ArrayList<TimeRange> mandatoryTimes,
+         ArrayList<TimeRange> optionalTimes, long duration) {
+    if (mandatoryTimes.isEmpty() && !optionalTimes.isEmpty()) {
+      return findFreeTimes(getOverlap(optionalTimes), duration);
+    }
+    if (!mandatoryTimes.isEmpty() && optionalTimes.isEmpty()) {
+      return findFreeTimes(getOverlap(mandatoryTimes), duration);
+    }
     ArrayList<TimeRange> allBusyTimes = new ArrayList<TimeRange>();
-    allBusyTimes.addAll(mandatory);
-    allBusyTimes.addAll(optional);
+    allBusyTimes.addAll(mandatoryTimes);
+    allBusyTimes.addAll(optionalTimes);
     ArrayList<TimeRange> overlappingBusyTimes = getOverlap(allBusyTimes);
     ArrayList<TimeRange> bothFree = findFreeTimes(overlappingBusyTimes, duration);
     if (bothFree.isEmpty()) {
-        return findFreeTimes(getOverlap(mandatory), duration);
+        return findFreeTimes(getOverlap(mandatoryTimes), duration);
     }
     return bothFree;
   }
