@@ -21,26 +21,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import static com.google.sps.TimeRange.*;
+import static com.google.sps.TimeRange.fromStartEnd;
+import static com.google.sps.TimeRange.WHOLE_DAY;
+import static com.google.sps.TimeRange.START_OF_DAY;
+import static com.google.sps.TimeRange.END_OF_DAY;
+import static com.google.sps.TimeRange.ORDER_BY_START;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    int meetingDuration = (int) request.getDuration();
-    if (meetingDuration > WHOLE_DAY.duration()) {
-      // If the meeting duration is too long, there is no time range.
-      return new ArrayList<TimeRange>();
-    }
-
-    if (events.isEmpty()) {
-      // If there are no events schedules, the whole day is available.
-      return Arrays.asList(WHOLE_DAY);
-    }
-
+    long meetingDuration = request.getDuration();
     Set<String> mandatoryAttendees =  new HashSet<String>(request.getAttendees());
     Set<String> optionalAttendees =  new HashSet<String>(request.getOptionalAttendees());
-
     return getPossibleTimes(getBusyTimes(events, mandatoryAttendees), 
-        getBusyTimes(events, optionalAttendees), request.getDuration());
+        getBusyTimes(events, optionalAttendees), meetingDuration);
   }
 
   /**
@@ -55,13 +48,11 @@ public final class FindMeetingQuery {
   */
   private ArrayList<TimeRange> getPossibleTimes(ArrayList<TimeRange> mandatoryTimes,
           ArrayList<TimeRange> optionalTimes, long duration) {
-    if (mandatoryTimes.isEmpty() && !optionalTimes.isEmpty()) {
-      //If there are NO mandatory attendees but there ARE optional attendees
+    if (mandatoryTimes.isEmpty()) {
       return findFreeTimes(getOverlap(optionalTimes), duration);
     }
     
-    if (!mandatoryTimes.isEmpty() && optionalTimes.isEmpty()) {
-      //If there ARE mandatory attendees but NO optional attendees.
+    if (optionalTimes.isEmpty() ) {
       return findFreeTimes(getOverlap(mandatoryTimes), duration);
     }
 
@@ -112,7 +103,7 @@ public final class FindMeetingQuery {
     }
     int overlapIndex = 0;
     for (int busyIndex=0; busyIndex < busyTimes.size(); busyIndex++) {
-      
+
       if (busyTimes.get(busyIndex).overlaps(busyWithOverlap.get(overlapIndex))) {
         int meetingStart = Math.min(busyWithOverlap.get(overlapIndex).start(), busyTimes.get(busyIndex).start());
         int meetingEnd = Math.max(busyWithOverlap.get(overlapIndex).end(), busyTimes.get(busyIndex).end()) - 1;
