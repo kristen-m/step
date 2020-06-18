@@ -112,6 +112,7 @@ public final class FindMeetingQuery {
     }
     int overlapIndex = 0;
     for (int busyIndex=0; busyIndex < busyTimes.size(); busyIndex++) {
+      
       if (busyTimes.get(busyIndex).overlaps(busyWithOverlap.get(overlapIndex))) {
         int meetingStart = Math.min(busyWithOverlap.get(overlapIndex).start(), busyTimes.get(busyIndex).start());
         int meetingEnd = Math.max(busyWithOverlap.get(overlapIndex).end(), busyTimes.get(busyIndex).end()) - 1;
