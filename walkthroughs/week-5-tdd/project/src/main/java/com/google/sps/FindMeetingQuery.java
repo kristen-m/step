@@ -57,14 +57,14 @@ public final class FindMeetingQuery {
     ArrayList<TimeRange> optionalBusyTimes = new ArrayList<TimeRange>();
     for(Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
-      Set<String> overlap = new HashSet<>(eventAttendees);
-      Set<String> overlapOptional = new HashSet<>(eventAttendees);
-      overlap.retainAll(requestAttendees);
-      overlapOptional.retainAll(optAttendees);
-      if (!overlap.isEmpty()) {
+      Set<String> mandatoryAttendeeOverlap = new HashSet<>(eventAttendees);
+      Set<String> optionalAttendeeOverlap = new HashSet<>(eventAttendees);
+      mandatoryAttendeeOverlap.retainAll(requestAttendees);
+      optionalAttendeeOverlap.retainAll(optAttendees);
+      if (!mandatoryAttendeeOverlap.isEmpty()) {
         busyTimes.add(event.getWhen());
       }
-      if (!overlapOptional.isEmpty()) {
+      if (!optionalAttendeeOverlap.isEmpty()) {
         optionalBusyTimes.add(event.getWhen());
       }
     }
