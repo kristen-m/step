@@ -53,10 +53,8 @@ public final class FindMeetingQuery {
   */
   private ArrayList<TimeRange> getPossibleTimes(Collection<Event> events, Set<String> mandatoryAttendees,
           Set<String> optAttendees, long duration) {
-    ArrayList<TimeRange> mandatoryBusyTimes = new ArrayList<TimeRange>();
-    ArrayList<TimeRange> optionalBusyTimes = new ArrayList<TimeRange>();
-    mandatoryBusyTimes = getBusyTimes(events, mandatoryAttendees);
-    optionalBusyTimes = getBusyTimes(events, optAttendees);
+    ArrayList<TimeRange> mandatoryBusyTimes = getBusyTimes(events, mandatoryAttendees);
+    ArrayList<TimeRange> optionalBusyTimes = getBusyTimes(events, optAttendees);
     return timesWithAccountForOptAttendees(mandatoryBusyTimes, optionalBusyTimes, duration);
   }   
 
