@@ -43,9 +43,9 @@ public final class FindMeetingQuery {
   }
 
   /**
-  * Returns an ArrayList of possible meeting times that prioritize the schedules of 
-  * mandatory meeting attendees and takes into account the schedule of optional attendees 
-  * if possible.
+  * Returns an ArrayList of all possible meeting times. The schedules of mandatory attendees
+  * are considered first with top priority. The schedule of optional attendees are considered
+  * when possible.
   *
   * @param  mandatory the ArrayList of timeranges where mandatory attendees are busy
   * @param  optional the ArrayList of timeranges where optional attendees are busy
@@ -58,7 +58,7 @@ public final class FindMeetingQuery {
       //If there are NO mandatory attendees but there ARE optional attendees
       return findFreeTimes(getOverlap(optionalTimes), duration);
     }
-
+    
     if (!mandatoryTimes.isEmpty() && optionalTimes.isEmpty()) {
       //If there ARE mandatory attendees but NO optional attendees.
       return findFreeTimes(getOverlap(mandatoryTimes), duration);
@@ -89,6 +89,7 @@ public final class FindMeetingQuery {
       Set<String> attendeeOverlap = new HashSet<>(event.getAttendees());
       attendeeOverlap.retainAll(attendees);
       if (!attendeeOverlap.isEmpty()) {
+        //Mark the time as unavailable if the requested attendees have a conflicting event
         unavailableTimes.add(event.getWhen());
       }
     }
