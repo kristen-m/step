@@ -21,18 +21,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import static com.google.sps.TimeRange.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     int meetingDuration = (int) request.getDuration();
-    if (meetingDuration > TimeRange.WHOLE_DAY.duration()) {
+    if (meetingDuration > WHOLE_DAY.duration()) {
       // If the meeting duration is too long, there is no time range.
       return new ArrayList<TimeRange>();
     }
 
     if (events.isEmpty()) {
       // If there are no events schedules, the whole day is available.
-      return Arrays.asList(TimeRange.WHOLE_DAY);
+      return Arrays.asList(WHOLE_DAY);
     }
 
     Set<String> mandatoryAttendees =  new HashSet<String>(request.getAttendees());
@@ -132,7 +133,7 @@ public final class FindMeetingQuery {
   * @param  duration the length of the meeting being planned
   * @return    the ArrayList of free meeting times
   */
-  private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long duration) {
+  private ArrayList<TimeRange> findFreeTimes(ArrayList<TimeRange> busyTimes, long meetingDuration) {
     ArrayList<TimeRange> freeTimes = new ArrayList<>();
     int start = TimeRange.START_OF_DAY;
     int end = TimeRange.END_OF_DAY;
@@ -141,13 +142,13 @@ public final class FindMeetingQuery {
       int thisStart = curr.start();
       int thisEnd = curr.end();
       TimeRange newFree = TimeRange.fromStartEnd(start, thisStart, false);
-      if (newFree.duration() >= duration) {
+      if (newFree.duration() >= meetingDuration) {
         freeTimes.add(newFree);
       }
       start = thisEnd;
     }
     TimeRange newFree = TimeRange.fromStartEnd(start, end, true);
-    if (newFree.duration() >= duration) {
+    if (newFree.duration() >= meetingDuration) {
       freeTimes.add(newFree);
     }
     return freeTimes;
