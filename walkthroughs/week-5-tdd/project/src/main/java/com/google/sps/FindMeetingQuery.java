@@ -99,7 +99,7 @@ public final class FindMeetingQuery {
 
   /**
   * Takes in an ArrayList of unavailable times and combines them to account for
-  * unavailable chunks that that overlap with each other. 
+  * unavailable chunks that overlap with each other. 
   *
   * @param  busyTimes an ArrayList that contains all of the unavailable meeting times
   * @return    the ArrayList of all chunks of meeting times that are unavailable.
