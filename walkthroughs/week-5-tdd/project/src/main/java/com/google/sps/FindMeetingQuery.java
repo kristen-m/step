@@ -24,21 +24,19 @@ import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeRange> possibleTimes = new ArrayList<TimeRange>();
-    Set<String> attendees =  new HashSet<String>();
-    Set<String> optionalAttendees =  new HashSet<String>();
-    int meetingDur = (int) request.getDuration();
-    attendees.addAll(request.getAttendees());
-    optionalAttendees.addAll(request.getOptionalAttendees());
-    if (meetingDur > TimeRange.WHOLE_DAY.duration()) {
-      return possibleTimes;
+    int meetingDuration = (int) request.getDuration();
+    if (meetingDuration > TimeRange.WHOLE_DAY.duration()) {
+      // If the meeting duration is too long, there is no time range.
+      return new ArrayList<TimeRange>();
     }
+
     if (events.isEmpty()) {
-      possibleTimes.add(TimeRange.WHOLE_DAY);
-      return possibleTimes;
+      return Arrays.asList(TimeRange.WHOLE_DAY);
     }
+
+    Set<String> attendees =  new HashSet<String>(request.getAttendees());
+    Set<String> optionalAttendees =  new HashSet<String>(request.getOptionalAttendees());
     return getPossibleTimes(events, attendees, optionalAttendees, request.getDuration());
-    
   }
 
   /**
