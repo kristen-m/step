@@ -31,30 +31,16 @@ public final class FindMeetingQuery {
     }
 
     if (events.isEmpty()) {
+      // If there are no events schedules, the whole day is available.
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    Set<String> attendees =  new HashSet<String>(request.getAttendees());
+    Set<String> mandatoryAttendees =  new HashSet<String>(request.getAttendees());
     Set<String> optionalAttendees =  new HashSet<String>(request.getOptionalAttendees());
-    return getPossibleTimes(events, attendees, optionalAttendees, request.getDuration());
-  }
 
-  /**
-  * Returns an ArrayList of all possible meeting times that are free for the given list of attendees,
-  * and includes optional attendees if possible. 
-  *
-  * @param  events the Collection of Event objects
-  * @param  requestAttendees the Set of mandatory attendees
-  * @param  optAttendees the Set of optional attendees
-  * @param  duration the length of the requested meeting
-  * @return    the ArrayList of all possible meeting times that work with the attendees schedules
-  */
-  private ArrayList<TimeRange> getPossibleTimes(Collection<Event> events, Set<String> mandatoryAttendees,
-          Set<String> optAttendees, long duration) {
-    ArrayList<TimeRange> mandatoryBusyTimes = getBusyTimes(events, mandatoryAttendees);
-    ArrayList<TimeRange> optionalBusyTimes = getBusyTimes(events, optAttendees);
-    return timesWithAccountForOptAttendees(mandatoryBusyTimes, optionalBusyTimes, duration);
-  }   
+    return getPossibleTimes(getBusyTimes(events, mandatoryAttendees), 
+        getBusyTimes(events, optionalAttendees), request.getDuration());
+  }
 
   /**
   * Returns an ArrayList of possible meeting times that prioritize the schedules of 
@@ -66,7 +52,7 @@ public final class FindMeetingQuery {
   * @param  duration the length of the requested meeting
   * @return    the ArrayList of all open meeting times for mandatory attendees & if possible, optional attendees
   */
-  private ArrayList<TimeRange> timesWithAccountForOptAttendees(ArrayList<TimeRange> mandatoryTimes,
+  private ArrayList<TimeRange> getPossibleTimes(ArrayList<TimeRange> mandatoryTimes,
           ArrayList<TimeRange> optionalTimes, long duration) {
     if (mandatoryTimes.isEmpty() && !optionalTimes.isEmpty()) {
       return findFreeTimes(getOverlap(optionalTimes), duration);
